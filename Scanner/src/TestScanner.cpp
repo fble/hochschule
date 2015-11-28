@@ -21,6 +21,7 @@ int main(int argc, char **argv) {
     cout<<token2->getInformation()->getInfo()<<endl;
     cout<<token2->getInformation()->getX()<<endl;
     cout<<token2->getInformation()->getY()<<endl;
-   // cout<<scanner->nextToken()->getInformation()->getInfo();
+
+    // cout<<scanner->nextToken()->getInformation()->getInfo();
 }
 

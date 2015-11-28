@@ -2,18 +2,34 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/Automat/includes/Automat.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Automat/includes/AutomatIdentifier.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Automat/includes/AutomatInteger.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Automat/includes/AutomatSign.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Automat/src/Automat.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Automat/src/AutomatIdentifier.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Automat/src/AutomatInteger.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Automat/src/AutomatSign.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Buffer/includes/Buffer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Buffer/src/Buffer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/InfoInt.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/InfoSign.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/Scanner.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/TType.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/Token.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/TokenChar.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/TokenInt.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/src/InfoInt.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/src/InfoSign.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/src/Scanner.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/src/TestScanner.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/src/TokenChar.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/src/TokenInt.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Symboltable/includes/InfoInd.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Symboltable/includes/Information.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Symboltable/includes/Symboltable.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Symboltable/includes/SymtabEntry.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Symboltable/src/InfoInd.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Symboltable/src/Symboltable.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Symboltable/src/SymtabEntry.cpp" isTestSource="false" />

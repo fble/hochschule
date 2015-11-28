@@ -21,18 +21,21 @@ set(SOURCE_FILES
         Scanner/includes/Scanner.h
         Scanner/includes/TokenInt.h
         Scanner/includes/TType.h
+        Scanner/includes/Token.h
+        Scanner/includes/TokenChar.h
         Scanner/src/InfoInt.cpp
         Scanner/src/InfoSign.cpp
         Scanner/src/Scanner.cpp
-        Scanner/src/TestScanner.cpp
+        Scanner/src/TokenChar.cpp
         Scanner/src/TokenInt.cpp
+        Scanner/src/TestScanner.cpp
         Symboltable/includes/InfoInd.h
         Symboltable/includes/Information.h
         Symboltable/includes/Symboltable.h
         Symboltable/includes/SymtabEntry.h
         Symboltable/src/InfoInd.cpp
         Symboltable/src/Symboltable.cpp
-        Symboltable/src/SymtabEntry.cpp Scanner/includes/Token.h Scanner/includes/TokenChar.h Scanner/src/TokenChar.cpp Scanner/src/TokenChar.h)
+        Symboltable/src/SymtabEntry.cpp)
     #Symboltable/src/TestSymboltable.cpp)
 
 add_executable(Compiler ${SOURCE_FILES})

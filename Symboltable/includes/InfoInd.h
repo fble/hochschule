@@ -8,18 +8,22 @@
 #ifndef SYMBOLTABLE_INCLUDES_INFOIND_H_
 #define SYMBOLTABLE_INCLUDES_INFOIND_H_
 
-#include "../includes/Information.h"
-class InfoInd : public Information<char*> {
+#include "../../Information/Information.h"
+
+class InfoInd : public Information {
 private:
 	char* name;
 	int x;
 	int y;
 public:
-	InfoInd(char* lexem, int x, int y);
+	InfoInd(char *value, int x, int y);
 	bool compareLex(char* lexem);
-	char* getInfo();
-	int getX();
-	int getY();
+
+	char *getInfo() override;
+
+	int getX() override;
+
+	int getY() override;
 };
 
 #endif /* SYMBOLTABLE_INCLUDES_INFOIND_H_ */

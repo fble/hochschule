@@ -1,6 +1,6 @@
 #include "../includes/Symboltable.h"
 #include <iostream>
-#include "../../Scanner/includes/InfoInt.h"
+#include "../includes/InfoInd.h"
 using namespace std;
 
 int main(int argc, char **argv) {
@@ -38,17 +38,12 @@ int main(int argc, char **argv) {
 		{ "hallo",5 },
 	};
 	for (int i = 0; i < size; i++) {
-		Information<char*>* info = symboltable->insert(test[i].string,test[i].x,test[i].y);
+		auto info = symboltable->insert(test[i].string, test[i].x, test[i].y);
 		if (info != 0) {
 			cout << info ->getInfo() << " " << info->getX() << " " << info->getY() << endl;
 		}	
 	};
 
-	Information<char*>* info = new InfoInd("hallo",1,1);
-	cout << info->getX() << endl;
-	 info = symboltable->lookup("hallo");
-	cout << info->getInfo() << " " << info->getX() << " " << info->getY() << endl;
-	 info = symboltable->lookup("if");
-	cout << info->getInfo() << " " << info->getX() << " " << info->getY() << endl;
+
 	while (1);
 }

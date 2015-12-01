@@ -7,30 +7,35 @@
 
 #ifndef SCANNER_H_
 #define SCANNER_H_
+
+#include <string.h>
 #include "../../Automat/includes/Automat.h"
 #include "../../Symboltable/includes/Symboltable.h"
 #include "../../Buffer/includes/Buffer.h"
-#include "TokenInt.h"
+#include "InfoToken.h"
+#include "Token.h"
 
-class Scanner
-{
-	Automat* automatSign;
-	Automat* automatIdentifier;
-	Automat* automatInteger;
-	Symboltable* symboltable;
-	Buffer* buffer;
-	char* tokenAnfang;
-	char* current;
+class Scanner {
+	Automat *automatSign;
+	Automat *automatIdentifier;
+	Automat *automatInteger;
+	Symboltable *symboltable;
+	Buffer *buffer;
+	char *tokenAnfang;
+	char *current;
 	bool identifier, integer, sign;
 	int x, y;
-	int runAutomats();
+
+	unsigned int runAutomats();
+
 public:
 
 	Scanner();
 
 	~Scanner();
-	template<typename T>
-	Token<T>* nextToken();
+
+	Token *nextToken();
 };
+
 
 #endif /* SCANNER_H_ */

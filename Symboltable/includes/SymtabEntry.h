@@ -13,7 +13,6 @@ private:
 	SymtabEntry* next;
 	InfoInd* info;
 	char* lexem;
-	void memcpy(char* start, char* word, int size);
 public:
 	InfoInd* getInfo();
 	SymtabEntry* getNext();

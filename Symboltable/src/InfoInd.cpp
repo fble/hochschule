@@ -1,8 +1,7 @@
 #include "../includes/InfoInd.h"
 
-InfoInd::InfoInd(char * lexem, int x, int y)
-{
-	this->name = lexem;
+InfoInd::InfoInd(char *value, int x, int y) {
+	this->name = value;
 	this->x = x;
 	this->y = y;
 }
@@ -17,7 +16,7 @@ bool InfoInd::compareLex(char * lexem)
 		tmp++;
 		lexem++;
 	}
-	return *tmp != *lexem ? false : true;
+	return *tmp == *lexem;
 }
 
 char * InfoInd::getInfo()

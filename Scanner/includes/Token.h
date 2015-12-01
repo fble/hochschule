@@ -2,18 +2,35 @@
 // Created by fble on 11/26/15.
 //
 
-#ifndef COMPILER_TOKEN_H
-#define COMPILER_TOKEN_H
-template<typename T>
-    class Token{
+#ifndef SCANNER_INCLUDES_TOKEN_H
+#define SCANNER_INCLUDES_TOKEN_H
+
+#include "TType.h"
+#include "../../Information/Information.h"
+
+class Token {
+    int line;
+    int column;
+    TType tType;
+    Information *info;
     public:
-
-        virtual int getLine() = 0;
-
-        virtual int getColumn() = 0;
-
-        virtual Information<T>* getInformation() = 0;
-
-        virtual TType getType() = 0;
+    Token(TType typ, int x, int y, Information *info) {
+        this->tType = typ;
+        this->line = y;
+        this->column = x;
+        this->info = info;
     };
+
+    ~Token() { };
+
+    int getLine() { return line; };
+
+    int getColumn() { return column; };
+
+    Information *getInformation() { return info; };
+
+    TType getType() { return tType; };
+    };
+
+
 #endif //COMPILER_TOKEN_H

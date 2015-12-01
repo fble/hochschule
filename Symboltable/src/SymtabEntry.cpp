@@ -1,3 +1,4 @@
+#include <string.h>
 #include "../includes/SymtabEntry.h"
 
 InfoInd * SymtabEntry::getInfo()
@@ -15,17 +16,10 @@ void SymtabEntry::setNext(SymtabEntry * next)
 	this->next = next;
 }
 
-SymtabEntry::SymtabEntry(char* lexem, int x, int y)
-{	
-	int size = 0;
-	char* tmp = lexem;
-	while (*tmp != '\0') {
-		size++;
-		tmp++;
-	}
-	this->lexem = new char[size];
-	memcpy(this->lexem, lexem, size);
-	info = new InfoInd(lexem,x,y);
+SymtabEntry::SymtabEntry(char* lexem, int x, int y) {
+	this->lexem = new char[strlen(lexem) + 1];
+	strcpy(this->lexem, lexem);
+	info = new InfoInd(this->lexem, x, y);
 }
 
 SymtabEntry::~SymtabEntry()
@@ -34,8 +28,3 @@ SymtabEntry::~SymtabEntry()
 	delete info;
 }
 
-void SymtabEntry::memcpy(char* start, char* word, int size) {
-	for (int i = 0; i <= size; i++) {
-		start[i] = word[i];
-	}
-}

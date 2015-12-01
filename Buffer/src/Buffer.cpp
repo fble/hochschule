@@ -7,15 +7,15 @@
 
 #include "../includes/Buffer.h"
 
-Buffer::Buffer() {
+Buffer::Buffer(char* filePath) {
 	index = 0;
-	
-	createBufSize();
 
-	cout << "BUFFER_SIZE: " << BUFFER_SIZE << endl;
+	createBufSize(filePath);
+
+	cout << "BUFFER_SIZE: " << BUFFER_SIZE << " Bytes" << endl;
 
 	// Datei mit Pfad und Modus öffnen
-	file_descripter = open("/home/ubuntu-gnome/file.txt", O_RDONLY | O_DIRECT);
+	file_descripter = open(filePath, O_RDONLY | O_DIRECT);
 
 	if(file_descripter < 0) {
 		cout << "Error";
@@ -29,11 +29,11 @@ Buffer::Buffer() {
 
 	currentChar = *((char*) buf1); 	// !! NUR FÜR TEST
 
-	cout << "READ: " << bytes_read << endl;
+	cout << "READ: " << bytes_read << " Bytes" << endl;
 }
 
-void Buffer::createBufSize() {
-	if(stat("/home/fble/Desktop/Compiler/Symboltable", &statbuf) == -1) {
+void Buffer::createBufSize(char* filePath) {
+	if(stat(filePath, &statbuf) == -1) {
 		cout << "Fehler";
 	}
 
@@ -58,10 +58,6 @@ char* Buffer::getChar() {
 	currentChar = *(a+i); // !!! NUR FÜR TEST
 
 	return (a+i);
-}
-
-char Buffer::getCurrentChar() { // !!!! NUR FÜR TEST
-	return currentChar;
 }
 
 char* Buffer::getCharPointer() {

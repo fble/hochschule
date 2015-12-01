@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
 
 	Buffer*  buffer;
 
-	buffer = new Buffer();
+	buffer = new Buffer("/home/ubuntu-gnome/file.txt");
 
 	while(true) {
 		char a = *buffer->getChar();

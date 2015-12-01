@@ -31,14 +31,13 @@ private:
 	int file_descripter;
 	int bytes_read;
 	char currentChar;
-	void createBufSize();
+	void createBufSize(char* filePath);
 public:
 	struct stat statbuf;
-	Buffer();
+	Buffer(char* filePath);
 	virtual ~Buffer();
 	char* getChar();
 	char* getCharPointer();
-	char getCurrentChar();
 };
 
 #endif /* BUFFER_H_ */

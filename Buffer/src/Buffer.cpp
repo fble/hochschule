@@ -27,6 +27,8 @@ Buffer::Buffer(char* filePath) {
 
 	bytes_read = read(file_descripter, buf1, BUFFER_SIZE);
 
+	close(file_descripter);
+
 	currentChar = *((char*) buf1); 	// !! NUR FÜR TEST
 
 	cout << "READ: " << bytes_read << " Bytes" << endl;

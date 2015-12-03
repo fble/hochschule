@@ -1,11 +1,53 @@
-#include "../includes/AutomatSign.h"
-#include "../includes/AutomatInteger.h"
-#include "../includes/AutomatIdentifier.h"
+//#include "../includes/AutomatSign.h"
+//#include "../includes/AutomatInteger.h"
+//#include "../includes/AutomatIdentifier.h"
+#include "../includes/AutomatManager.h"
 #include <iostream>
 using namespace std;
 
-int main (int argc, char* argv[]){
-	int signElements = 16;
+void output(int ctr, AutomatManager* manager) {
+	cout << ctr << " Zeichen gehören zu der Sprache" << endl;
+	cout << "Zeichen Nummer " << ctr+1 << " führt zum Verwerfen des Automaten!" << endl;
+
+	char* type;
+
+	switch(manager->getType()) {
+		case Integer: type = "Integer"; break;
+		case Identifier: type = "Identifier"; break;
+		case Sign: type = "Sign"; break;
+		case Fehler: type = "Fehler"; break;
+		case Error: type = "Nicht eindeutig"; break;
+		default: type = "NoType";
+	}
+	cout << "Der Token ist vom Typ " << type;
+}
+
+
+
+
+int main (int argc, char* argv[]) {
+	char* testString = "123e";
+
+	AutomatManager* manager = new AutomatManager();
+
+	int ctr = 0;
+
+	while(*testString != '\0') {
+		bool tmp = manager->readChar(*testString);
+
+		if(tmp) ctr++;
+
+		testString++;
+	}
+
+	output(ctr, manager);
+
+}
+
+
+
+void Test1() {
+	/*int signElements = 16;
 
 	char* lexemeSign[] = {
 			"<:>", "+", ":=", "=:", "?", "&&", "[", ";", "!", "<:><", "<?", "?<",
@@ -75,6 +117,5 @@ int main (int argc, char* argv[]){
 
 		cout << lexemeIden[i]-ctr << " wird zu " << automatIden->isFinal() << endl;
 		automatIden->reset();
-	}
-
+	}*/
 }

@@ -1,10 +1,3 @@
-/*
- * AutomatIdentifier.cpp
- *
- *  Created on: 01.11.2015
- *      Author: ubuntu-gnome
- */
-
 #include "../includes/AutomatIdentifier.h"
 
 AutomatIdentifier::AutomatIdentifier() {
@@ -30,4 +23,8 @@ void AutomatIdentifier::doTransition(State currState, char c) {
 
 void AutomatIdentifier::readChar(char c) {
 	doTransition(this->currState, c);
+}
+
+TType AutomatIdentifier::getType() {
+	return Identifier;
 }

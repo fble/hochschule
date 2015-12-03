@@ -38,7 +38,10 @@ bool AutomatManager::readChar(char c) {
     // Prüft, ob alle Automaten verworfen haben
     if(this->automatInteger->hasRejected() && this->automatSign->hasRejected() && automatIdentifier->hasRejected()) {
         // Wenn beim 1. Zeichen der Automat verwirft, dann ist das ein ungültiges Zeichen
-        if(ctr == 1) noType = true;
+        //
+        if(ctr == 1) {
+            noType = true;
+        }
         return false;
     }
 

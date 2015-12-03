@@ -5,14 +5,14 @@
  *      Author: knad0001
  */
 
-#include "../includes/Scanner.h"
+#include "../includes/ScannerImp.h"
 #include"../../Automat/includes/AutomatIdentifier.h"
 #include"../../Automat/includes/AutomatInteger.h"
 #include"../../Automat/includes/AutomatSign.h"
 
 #include <string.h>
 
-Token *Scanner::nextToken() {
+Token *ScannerImp::nextToken() {
 	this->identifier = false, sign = false, integer = false;
 	this->tokenAnfang = buffer->getCharPointer();
 	const unsigned int wortlaenge = runAutomats();
@@ -28,7 +28,7 @@ Token *Scanner::nextToken() {
 		return new Token(Sign, x, y, new InfoToken(tmp));
 	}
 	if (integer) {
-		//return new TokenInt(Integer, x, y, new InfoInt(strtol(tmp, nullptr, 10)));
+		return new Token(Integer, x, y, new InfoToken(tmp));
 	}
 	else {
 		if (!(*tmp == ' ' || *tmp == '\n')) {
@@ -36,9 +36,10 @@ Token *Scanner::nextToken() {
 		}
 
 	}
+	return NULL;
 }
 
-unsigned int Scanner::runAutomats()
+unsigned int ScannerImp::runAutomats()
 {
 	unsigned int wortlaenge = 0;
 	while (!(!automatIdentifier->isFinal() && !automatSign->isFinal() && !automatInteger->isFinal())) {
@@ -60,7 +61,7 @@ unsigned int Scanner::runAutomats()
     return wortlaenge;
 }
 
-Scanner::Scanner(): tokenAnfang(nullptr), x(0), y(0)
+ScannerImp::ScannerImp() : tokenAnfang(nullptr), x(0), y(0)
 {
     this->buffer = new Buffer();
     this->automatIdentifier = new AutomatIdentifier();
@@ -70,7 +71,7 @@ Scanner::Scanner(): tokenAnfang(nullptr), x(0), y(0)
     symboltable->init();
 }
 
-Scanner::~Scanner() {
+ScannerImp::~ScannerImp() {
     delete buffer;
     delete automatIdentifier;
     delete automatSign;
@@ -78,3 +79,6 @@ Scanner::~Scanner() {
     delete symboltable;
 }
 
+Token *ScannerImp::makeToken(TType typ) {
+	return 0;
+}

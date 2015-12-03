@@ -1,41 +1,14 @@
-/*
- * Scanner.h
- *
- *  Created on: Sep 26, 2012
- *      Author: knad0001
- */
+//
+// Created by fble on 12/3/15.
+//
 
-#ifndef SCANNER_H_
-#define SCANNER_H_
+#ifndef COMPILER_SCANNER_H_H
+#define COMPILER_SCANNER_H_H
 
-#include <string.h>
-#include "../../Automat/includes/Automat.h"
-#include "../../Symboltable/includes/Symboltable.h"
-#include "../../Buffer/includes/Buffer.h"
-#include "InfoToken.h"
 #include "Token.h"
 
 class Scanner {
-	Automat *automatSign;
-	Automat *automatIdentifier;
-	Automat *automatInteger;
-	Symboltable *symboltable;
-	Buffer *buffer;
-	char *tokenAnfang;
-	char *current;
-	bool identifier, integer, sign;
-	int x, y;
-
-	unsigned int runAutomats();
-
-public:
-
-	Scanner();
-
-	~Scanner();
-
-	Token *nextToken();
+    virtual Token *nextToken() = 0;
 };
 
-
-#endif /* SCANNER_H_ */
+#endif //COMPILER_SCANNER_H_H

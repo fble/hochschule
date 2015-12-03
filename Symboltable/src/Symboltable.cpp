@@ -44,10 +44,10 @@ Information *Symboltable::insert(char *lexem, int x, int y) {
 
 void Symboltable::init()
 {
-	insert("if", -1, -1);
-	insert("IF", -1, -1);
-	insert("while", -1, -1);
-	insert("WHILE", -1, -1);
+	insert((char *) "if", -1, -1);
+	insert((char *) "IF", -1, -1);
+	insert((char *) "while", -1, -1);
+	insert((char *) "WHILE", -1, -1);
 }
 
 Information *Symboltable::lookup(char *lexem)

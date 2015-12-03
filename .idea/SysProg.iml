@@ -14,11 +14,13 @@
       <sourceFolder url="file://$MODULE_DIR$/Buffer/src/Buffer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Information/Information.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/IScanner.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/InfoToken.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/Scanner.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/ScannerImp.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/TType.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/Token.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Scanner/src/Scanner.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/src/ScannerImp.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/src/TestScanner.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Symboltable/includes/InfoInd.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Symboltable/includes/Symboltable.h" isTestSource="false" />

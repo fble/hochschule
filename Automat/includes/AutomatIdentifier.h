@@ -22,6 +22,7 @@ public:
 	virtual ~AutomatIdentifier();
 	virtual void readChar(char c);
 	virtual void doTransition(State state, char c);
+	virtual TType getType();
 
 };
 

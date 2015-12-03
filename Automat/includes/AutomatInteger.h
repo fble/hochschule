@@ -27,6 +27,7 @@ public:
 	virtual ~AutomatInteger();
 	virtual void readChar(char c);
 	virtual void doTransition(State state, char c);
+	virtual TType getType();
 };
 
 #endif /* AUTOMAT_SRC_AUTOMATINTEGER_H_ */

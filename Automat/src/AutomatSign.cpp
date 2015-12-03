@@ -24,3 +24,9 @@ void AutomatSign::doTransition(State currState, char c) {
 void AutomatSign::readChar(char c) {
 	doTransition(this->currState, c);
 }
+
+TType AutomatSign::getType() {
+	State state = this->currState;
+
+	return Fehler;
+}

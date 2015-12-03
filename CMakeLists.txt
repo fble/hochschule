@@ -1,21 +1,23 @@
 cmake_minimum_required(VERSION 3.3)
-project(Compiler)
+project(hochschule)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
-        #Automat/includes/Automat.h
-        #Automat/includes/AutomatIdentifier.h
-        #Automat/includes/AutomatInteger.h
-        #Automat/includes/AutomatSign.h
-        #Automat/src/Automat.cpp
-        #Automat/src/AutomatIdentifier.cpp
-        #Automat/src/AutomatInteger.cpp
-        #Automat/src/AutomatSign.cpp
-        #Automat/src/TestAutomat.cpp
-        Buffer/includes/Buffer.h
-        Buffer/src/Buffer.cpp
-        Buffer/src/TestBuffer.cpp
+        Automat/includes/Automat.h
+        Automat/includes/AutomatIdentifier.h
+        Automat/includes/AutomatInteger.h
+        Automat/includes/AutomatSign.h
+        Automat/src/Automat.cpp
+        Automat/src/AutomatIdentifier.cpp
+        Automat/src/AutomatInteger.cpp
+        Automat/src/AutomatSign.cpp
+        Automat/src/TestAutomat.cpp
+        Automat/src/AutomatManager.cpp
+        Automat/includes/AutomatManager.h
+        #Buffer/includes/Buffer.h
+        #Buffer/src/Buffer.cpp
+        #Buffer/src/TestBuffer.cpp
         #Symboltable/includes/InfoInd.h
         #Symboltable/includes/Symboltable.h
         #Symboltable/includes/SymtabEntry.h
@@ -33,4 +35,4 @@ set(SOURCE_FILES
         )
 
 
-add_executable(Compiler ${SOURCE_FILES})
+add_executable(hochschule ${SOURCE_FILES})

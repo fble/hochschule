@@ -24,3 +24,7 @@ void AutomatInteger::doTransition(State currState, char c) {
 void AutomatInteger::readChar(char c) {
 	doTransition(this->currState, c);
 }
+
+TType AutomatInteger::getType() {
+	return Integer;
+}

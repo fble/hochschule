@@ -3,6 +3,6 @@
 
 int main(int argc, char **argv) {
     ScannerImp *scanner = new ScannerImp();
-    scanner->nextToken();
+    cout<<scanner->nextToken()->getInformation()->getInfo();
 }
 

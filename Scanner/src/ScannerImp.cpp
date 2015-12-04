@@ -5,7 +5,7 @@
  *      Author: knad0001
  */
 
-#include "Scanner.h"
+#include "../includes/ScannerImp.h"
 #include"../../Automat/includes/AutomatIdentifier.h"
 #include"../../Automat/includes/AutomatInteger.h"
 #include"../../Automat/includes/AutomatSign.h"
@@ -63,7 +63,7 @@ unsigned int ScannerImp::runAutomats()
 
 ScannerImp::ScannerImp() : tokenAnfang(nullptr), x(0), y(0)
 {
-    this->buffer = new Buffer();
+    this->buffer = new Buffer("/home/fble/Desktop/test.txt");
     this->automatIdentifier = new AutomatIdentifier();
     this->automatSign = new AutomatSign();
     this->automatInteger = new AutomatInteger();

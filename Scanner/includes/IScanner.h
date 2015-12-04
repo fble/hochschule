@@ -9,7 +9,7 @@
 #include "Token.h"
 
 class IScanner {
-    virtual Token *makeToken(TType typ);
+    virtual Token *makeToken(TType typ) = 0;
 };
 
 #endif //COMPILER_ISCANNER_H_H

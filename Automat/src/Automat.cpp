@@ -2,7 +2,7 @@
 
 Automat::Automat() {
 	setFinal(false);
-	back = 0;
+	charCtr = 0;
 }
 
 Automat::~Automat() {}

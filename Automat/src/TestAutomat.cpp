@@ -5,6 +5,11 @@
 #include <iostream>
 using namespace std;
 
+const int length = 5;
+int factor = 1;
+char test[length];
+int ctr = 0;
+
 void output(int ctr, AutomatManager* manager) {
 	cout << ctr << " Zeichen gehören zu der Sprache" << endl;
 	cout << "Zeichen Nummer " << ctr+1 << " führt zum Verwerfen des Automaten!" << endl;
@@ -17,16 +22,15 @@ void output(int ctr, AutomatManager* manager) {
 		case Sign: type = "Sign"; break;
 		case Fehler: type = "Fehler"; break;
 		case Error: type = "Nicht eindeutig"; break;
+		case If: type = "If"; break;
+		case While: type = "While"; break;
 		default: type = "NoType";
 	}
-	cout << "Der Token ist vom Typ " << type;
+	cout << "Der Token ist vom Typ " << type << endl;
 }
 
-
-
-
 int main (int argc, char* argv[]) {
-	char* testString = "123e";
+	char* testString = "=";
 
 	AutomatManager* manager = new AutomatManager();
 
@@ -66,7 +70,7 @@ void Test1() {
 		}
 
 		if(!automat->isFinal()) {
-			cout << "Nach " << automat->back << " Zeichen verworfen" << "   ";
+			cout << "Nach " << automat->charCtr << " Zeichen verworfen" << "   ";
 		}
 		cout << lexemeSign[i]-ctr << " wird zu " << automat->isFinal() << endl;
 		automat->reset();
@@ -89,7 +93,7 @@ void Test1() {
 		}
 
 		if(!automatInt->isFinal()) {
-			cout << "Nach " << automatInt->back << " Zeichen verworfen" << "   ";
+			cout << "Nach " << automatInt->charCtr << " Zeichen verworfen" << "   ";
 		}
 		cout << lexemeInt[i]-ctr << " wird zu " << automatInt->isFinal() << endl;
 		automatInt->reset();
@@ -112,7 +116,7 @@ void Test1() {
 		}
 
 		if(!automatIden->isFinal()) {
-			cout << "Nach " << automatIden->back << " Zeichen verworfen" << "   ";
+			cout << "Nach " << automatIden->charCtr << " Zeichen verworfen" << "   ";
 		}
 
 		cout << lexemeIden[i]-ctr << " wird zu " << automatIden->isFinal() << endl;

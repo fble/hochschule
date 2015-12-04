@@ -12,13 +12,16 @@ void AutomatInteger::doTransition(State currState, char c) {
 		if(matrix[i].currState == currState && matrix[i].c == c) {
 			this->currState = matrix[i].nextState;
 			tmp = true;
-			back++;
+			charCtr++;
 		}
 	}
 
 	if(!tmp) setCurrentState(STATE_NULL);
 
 	setFinal(this->currState == STATE_FINAL && tmp);
+
+	if(isFinal())
+		this->charEnd = charCtr;
 }
 
 void AutomatInteger::readChar(char c) {

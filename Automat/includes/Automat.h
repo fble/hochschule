@@ -11,12 +11,20 @@ public:
 			STATE_1,
 			STATE_2,
 			STATE_3,
+			STATE_I,
+			STATE_IF,
+			STATE_W,
+			STATE_WH,
+			STATE_WHI,
+			STATE_WHIL,
+			STATE_WHILE,
 			STATE_FINAL
 		} State;
 
 	bool final;
 	State currState;
-	int back;
+	int charCtr;
+	int charEnd = -1;
 public:
 	Automat();
 	virtual ~Automat();
@@ -28,7 +36,7 @@ public:
 	bool hasRejected() {return this->currState == STATE_NULL;};
 	void setFinal(bool state) {this->final = state;};
 	void setCurrentState(State newState) {this->currState = newState;};
-	void reset() {this->setCurrentState(STATE_0); setFinal(false); back=0;};
+	void reset() {this->setCurrentState(STATE_0); setFinal(false); charCtr =0;};
 
 };
 

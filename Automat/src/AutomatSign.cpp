@@ -12,13 +12,16 @@ void AutomatSign::doTransition(State currState, char c) {
 		if(matrix[i].currState == currState && matrix[i].c == c) {
 			this->currState = matrix[i].nextState;
 			tmp = true;
-			back++;
+			charCtr++;
 		}
 	}
 
 	if(!tmp) setCurrentState(STATE_NULL);
 
 	setFinal((this->currState == STATE_FINAL || this->currState == STATE_1 || this->currState == STATE_2) && tmp);
+
+	if(isFinal())
+		this->charEnd = charCtr;
 }
 
 void AutomatSign::readChar(char c) {
@@ -28,5 +31,5 @@ void AutomatSign::readChar(char c) {
 TType AutomatSign::getType() {
 	State state = this->currState;
 
-	return Fehler;
+	return Equal;
 }

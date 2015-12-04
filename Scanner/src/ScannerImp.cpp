@@ -5,7 +5,7 @@
  *      Author: knad0001
  */
 
-#include "../includes/ScannerImp.h"
+#include "Scanner.h"
 #include"../../Automat/includes/AutomatIdentifier.h"
 #include"../../Automat/includes/AutomatInteger.h"
 #include"../../Automat/includes/AutomatSign.h"

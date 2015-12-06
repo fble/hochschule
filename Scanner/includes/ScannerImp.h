@@ -18,14 +18,11 @@
 #include "IScanner.h"
 
 class ScannerImp : public IScanner, Scanner {
-	Automat *automatSign;
-	Automat *automatIdentifier;
-	Automat *automatInteger;
+	Token *token;
 	Symboltable *symboltable;
 	Buffer *buffer;
 	char *tokenAnfang;
 	char *current;
-	bool identifier, integer, sign;
 	int x, y;
 
 	unsigned int runAutomats();

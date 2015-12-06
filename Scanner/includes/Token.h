@@ -14,12 +14,16 @@ class Token {
     TType tType;
     Information *info;
     public:
-    Token(TType typ, int x, int y, Information *info) {
+    Token(TType typ) {
         this->tType = typ;
+
+    };
+
+    void init(int x, int y, Information *info){
         this->line = y;
         this->column = x;
         this->info = info;
-    };
+    }
 
     ~Token() { };
 

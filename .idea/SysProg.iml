@@ -12,8 +12,24 @@
       <sourceFolder url="file://$MODULE_DIR$/Automat/src/AutomatInteger.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Automat/src/AutomatManager.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Automat/src/AutomatSign.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Automat/src/TestAutomat.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Buffer/includes/Buffer.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Buffer/src/Buffer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Information/Information.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/IScanner.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/InfoToken.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/Scanner.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/ScannerImp.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/TType.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/Token.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/src/ScannerImp.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/src/TestScanner.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Symboltable/includes/InfoInd.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Symboltable/includes/Symboltable.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Symboltable/includes/SymtabEntry.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Symboltable/src/InfoInd.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Symboltable/src/Symboltable.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Symboltable/src/SymtabEntry.cpp" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -21,18 +37,18 @@
       <library name="Header Search Paths">
         <CLASSES>
           <root url="file:///usr/include" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include/cilk" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include/sanitizer" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include/cilk" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include/sanitizer" />
           <root url="file:///usr/local/include" />
         </CLASSES>
         <SOURCES>
           <root url="file:///usr/include" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include/cilk" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include/sanitizer" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include/cilk" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include/sanitizer" />
           <root url="file:///usr/local/include" />
         </SOURCES>
       </library>

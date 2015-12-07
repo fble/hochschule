@@ -2,7 +2,8 @@
 
 
 int main(int argc, char **argv) {
-    ScannerImp *scanner = new ScannerImp();
-    cout<<scanner->nextToken()->getInformation()->getInfo();
+    ScannerImp *scanner = new ScannerImp((char*)"/home/fble/Desktop/hochschule/test.txt");
+    cout << scanner->nextToken()->getType();
 }
+
 

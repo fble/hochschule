@@ -20,7 +20,6 @@ private:
 
 	const TransitionElementKeyWords matrixKeyWords[7] = {
 			{STATE_0, STATE_I, 'i', 'I'}, {STATE_I, STATE_IF, 'f', 'F'},
-
 			{STATE_0, STATE_W, 'w', 'W'}, {STATE_W, STATE_WH, 'h', 'H'},
 			{STATE_WH, STATE_WHI, 'i', 'I'}, {STATE_WHI, STATE_WHIL, 'l', 'L'},
 			{STATE_WHIL, STATE_WHILE, 'e', 'E'}

@@ -16,11 +16,12 @@
 #include "Token.h"
 #include "Scanner.h"
 #include "IScanner.h"
+#include "../../Automat/includes/AutomatManager.h"
 
-class ScannerImp : public IScanner, Scanner {
-	Token *token;
+class ScannerImp : public Scanner {
 	Symboltable *symboltable;
 	Buffer *buffer;
+	AutomatManager *manager;
 	char *tokenAnfang;
 	char *current;
 	int x, y;
@@ -29,13 +30,12 @@ class ScannerImp : public IScanner, Scanner {
 
 public:
 
-	ScannerImp();
+	ScannerImp(char *filepath);
 
 	~ScannerImp();
 
 	Token *nextToken() override;
 
-	Token *makeToken(TType typ) override;
 };
 
 

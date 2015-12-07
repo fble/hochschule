@@ -14,16 +14,13 @@ class Token {
     TType tType;
     Information *info;
     public:
-    Token(TType typ) {
+    Token(TType typ,int x, int y, Information *info) {
         this->tType = typ;
+        this->column = x;
+        this->line = y;
+        this->info = info;
 
     };
-
-    void init(int x, int y, Information *info){
-        this->line = y;
-        this->column = x;
-        this->info = info;
-    }
 
     ~Token() { };
 
@@ -33,8 +30,8 @@ class Token {
 
     Information *getInformation() { return info; };
 
-    TType getType() { return tType; };
-    };
+    TType getType() {return tType;};
 
+};
 
 #endif //COMPILER_TOKEN_H

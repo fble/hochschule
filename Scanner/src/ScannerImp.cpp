@@ -18,18 +18,33 @@ Token *ScannerImp::nextToken() {
 	char tmp[wortlaenge + 1];
 	memcpy(tmp, tokenAnfang, wortlaenge);
 	tmp[wortlaenge] = '\0';
-	return NULL;
+	TType typ = manager->getType();
+	if (typ == Identifier) {
+		auto info = symboltable->insert(tmp, x, y);
+		switch (info->getX()) {
+			case -1:
+				typ = If;
+			case -2:
+				typ = While;
+			default:;
+		}
+		return new Token(typ, x, y, info);
+	}
+	return new Token(typ, x, y, new InfoToken(tmp));
 }
 
 unsigned int ScannerImp::runAutomats()
 {
-
-    return 0;
+	unsigned int wortlaenge = 0;
+	while(manager->readChar(*buffer->getChar())){
+		wortlaenge++;
+	}
 }
 
-ScannerImp::ScannerImp() : tokenAnfang(nullptr), x(0), y(0)
+ScannerImp::ScannerImp(char *filepath)
 {
-    this->buffer = new Buffer((char*)"/home/fble/Desktop/test.txt");
+    this->buffer = new Buffer(filepath);
+	this->manager = new AutomatManager();
     this->symboltable = new Symboltable();
     symboltable->init();
 }
@@ -37,8 +52,5 @@ ScannerImp::ScannerImp() : tokenAnfang(nullptr), x(0), y(0)
 ScannerImp::~ScannerImp() {
     delete buffer;
     delete symboltable;
-}
-
-Token *ScannerImp::makeToken(TType typ) {
-	this->token = new Token(typ);
+	delete manager;
 }

@@ -48,8 +48,12 @@ void Buffer::createBufSize(char* filePath) {
 		}
 		tmp = a;
 	}
+	if(tmp<512){
+		BUFFER_SIZE = 512;
+	}else{
+		BUFFER_SIZE = tmp;
+	}
 
-	BUFFER_SIZE = tmp;
 }
 
 char* Buffer::getChar() {

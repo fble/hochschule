@@ -39,6 +39,7 @@ public:
 
 	bool final;
 	State currState;
+	State lastState;
 
 
 	/**

@@ -18,7 +18,7 @@ void AutomatInteger::doTransition(State currState, char c) {
 		}
 	}
 
-	this->lastState = currState;
+	this->lastState = this->currState;
 
 	if(!matchFound) setCurrentState(STATE_NULL);
 

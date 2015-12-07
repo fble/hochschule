@@ -18,8 +18,6 @@ private:
 		char cHigh;
 	} TransitionElementKeyWords;
 
-	State lastState;
-
 	const TransitionElementKeyWords matrixKeyWords[7] = {
 			{STATE_0, STATE_I, 'i', 'I'}, {STATE_I, STATE_IF, 'f', 'F'},
 

@@ -29,7 +29,7 @@ void output(AutomatManager* manager, char* testString, int ctr2) {
 }
 
 int main (int argc, char* argv[]) {
-	char* testString = "x:=1+2";
+	char* testString = "abc+1-5<:>";
 
 	AutomatManager* manager = new AutomatManager();
 

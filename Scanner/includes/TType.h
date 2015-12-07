@@ -11,7 +11,27 @@ typedef enum {
     Sign,
     If,
     While,
-    Fehler
+    Fehler,
+    Error,
+    Plus,
+    Minus,
+    Stern,
+    Division,
+    Equal,
+    LessThan,
+    GreaterThan,
+    NotEqual,
+    Assign,
+    And,
+    Not,
+    Semicolon,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    OpeningSquareBracket,
+    ClosingSquareBracket,
+    OpeningBrace,
+    ClosingBrace
+
 } TType;
 
 #endif //SYSPROG_TTYPE_H

@@ -24,6 +24,7 @@ public:
 	virtual ~AutomatSign();
 	virtual void readChar(char c);
 	virtual void doTransition(State state, char c);
+	virtual TType getType();
 };
 
 #endif /* AUTOMAT_SRC_AUTOMATSIGN_H_ */

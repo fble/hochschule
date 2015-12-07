@@ -6,19 +6,15 @@
  */
 
 #include "../includes/ScannerImp.h"
-#include"../../Automat/includes/AutomatIdentifier.h"
-#include"../../Automat/includes/AutomatInteger.h"
-#include"../../Automat/includes/AutomatSign.h"
-
-#include <string.h>
 
 Token *ScannerImp::nextToken() {
 	this->tokenAnfang = buffer->getCharPointer();
-	const unsigned int wortlaenge = runAutomats();
+	const unsigned int wortlaenge = runMachines();
 	char tmp[wortlaenge + 1];
 	memcpy(tmp, tokenAnfang, wortlaenge);
 	tmp[wortlaenge] = '\0';
 	TType typ = manager->getType();
+	manager->reset();
 	if (typ == Identifier) {
 		auto info = symboltable->insert(tmp, x, y);
 		switch (info->getX()) {
@@ -29,15 +25,34 @@ Token *ScannerImp::nextToken() {
 			default:;
 		}
 		return new Token(typ, x, y, info);
+	}else{
+		return new Token(typ, x, y, new InfoToken(tmp));
 	}
-	return new Token(typ, x, y, new InfoToken(tmp));
 }
 
-unsigned int ScannerImp::runAutomats()
+unsigned int ScannerImp::runMachines()
 {
 	unsigned int wortlaenge = 0;
+	skip_spaces();
 	while(manager->readChar(*buffer->getChar())){
 		wortlaenge++;
+		x++;
+	}
+	return wortlaenge;
+}
+
+void ScannerImp::skip_spaces(){
+	while(1){
+		char tmp = *buffer->getChar();
+		if(tmp == ' '){
+			x++;
+		}else if(tmp == '\n'){
+			x = 0;
+			y++;
+		}else{
+			buffer->ungetChar();
+			break;
+		}
 	}
 }
 
@@ -54,3 +69,4 @@ ScannerImp::~ScannerImp() {
     delete symboltable;
 	delete manager;
 }
+

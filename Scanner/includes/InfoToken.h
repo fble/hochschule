@@ -14,7 +14,10 @@
 class InfoToken : public Information {
     char *value;
 public:
-    InfoToken(char *value) { strcpy(this->value, value); };
+    InfoToken(char *value) {
+        this->value = new char(strlen(value));
+        strcpy(this->value, value);
+    };
 
     virtual ~InfoToken() { };
 

@@ -46,7 +46,6 @@ public:
     bool readChar(char c);
     int getEndOfChar();
     void reset();
-    char* toString();
 };
 
 

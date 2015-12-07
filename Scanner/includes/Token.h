@@ -14,6 +14,7 @@ class Token {
     TType tType;
     Information *info;
     public:
+
     Token(TType typ,int x, int y, Information *info) {
         this->tType = typ;
         this->column = x;
@@ -31,6 +32,8 @@ class Token {
     Information *getInformation() { return info; };
 
     TType getType() {return tType;};
+
+
 
 };
 

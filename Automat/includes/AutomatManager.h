@@ -17,11 +17,26 @@ private:
     Automat* automatIdentifier;
     Automat* automatInteger;
 
+
+    /**
+     * Hilfsvariablen zur Erfassung der aktuellen Zustände der einzelnen Automaten.
+     */
     bool signRejected;
     bool identifierRejected;
     bool integerRejected;
 
-    bool noType;
+
+    /**
+     * Gibt an, ob ein Zeichen gelesen wurde, was nicht in der Sprache enthalten ist.
+     */
+    bool validType = true;
+
+
+    /**
+     * Dieser Wert gibt an, an welcher relativen Stelle das gültige Lexem
+     * endet.
+     */
+    int endOfChar;
 
     int ctr;
 public:
@@ -29,8 +44,9 @@ public:
     ~AutomatManager();
     TType getType();
     bool readChar(char c);
-    int getCharLength();
     int getEndOfChar();
+    void reset();
+    char* toString();
 };
 
 

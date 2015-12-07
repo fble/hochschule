@@ -1,4 +1,5 @@
 #include "../includes/AutomatIdentifier.h"
+#include <iostream>
 
 AutomatIdentifier::AutomatIdentifier() {
 	setCurrentState(STATE_0);
@@ -45,9 +46,12 @@ void AutomatIdentifier::doTransition(State currState, char c) {
 	}
 
 
+
+	this->lastState = this->currState;
+
 	if(!matchFound) setCurrentState(STATE_NULL);
 
-	setFinal(this->currState == STATE_FINAL && matchFound);
+	setFinal((this->currState == STATE_FINAL || this->currState == STATE_IF || this->currState == STATE_WHILE) && matchFound);
 
 	if(isFinal())
 		this->charEnd = charCtr;
@@ -58,10 +62,18 @@ void AutomatIdentifier::readChar(char c) {
 }
 
 TType AutomatIdentifier::getType() {
-	switch(this->currState) {
+	switch(this->lastState) {
 		case STATE_IF: return If;
 		case STATE_WHILE: return While;
 		case STATE_FINAL: return Identifier;
-		default: return Fehler;
+		default: return Identifier; // Oder Fehler
 	}
+}
+
+void AutomatIdentifier::reset() {
+	this->setCurrentState(STATE_0);
+	this->lastState = STATE_0;
+	setFinal(false);
+	charCtr =-1;
+	charEnd = -1;
 }

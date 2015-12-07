@@ -11,6 +11,8 @@ private:
 		char c;
 	} TransitionElement;
 
+	State lastState;
+
 	const TransitionElement matrix[20] = {
 			{STATE_0, STATE_FINAL, '0'}, {STATE_0, STATE_FINAL, '1'}, {STATE_0, STATE_FINAL, '2'},
 			{STATE_0, STATE_FINAL, '3'}, {STATE_0, STATE_FINAL, '4'}, {STATE_0, STATE_FINAL, '5'},
@@ -28,6 +30,7 @@ public:
 	virtual void readChar(char c);
 	virtual void doTransition(State state, char c);
 	virtual TType getType();
+	virtual void reset();
 };
 
 #endif /* AUTOMAT_SRC_AUTOMATINTEGER_H_ */

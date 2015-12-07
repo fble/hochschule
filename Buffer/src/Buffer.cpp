@@ -49,6 +49,8 @@ void Buffer::createBufSize(char* filePath) {
 		tmp = a;
 	}
 
+	if(tmp < 512) tmp = 512;
+
 	BUFFER_SIZE = tmp;
 }
 

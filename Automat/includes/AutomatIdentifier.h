@@ -18,6 +18,8 @@ private:
 		char cHigh;
 	} TransitionElementKeyWords;
 
+	State lastState;
+
 	const TransitionElementKeyWords matrixKeyWords[7] = {
 			{STATE_0, STATE_I, 'i', 'I'}, {STATE_I, STATE_IF, 'f', 'F'},
 
@@ -39,7 +41,7 @@ public:
 	virtual void readChar(char c);
 	virtual void doTransition(State state, char c);
 	virtual TType getType();
-
+	virtual void reset();
 };
 
 #endif /* AUTOMAT_SRC_AUTOMATIDENTIFIER_H_ */

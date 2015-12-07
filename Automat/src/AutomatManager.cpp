@@ -20,8 +20,7 @@ TType AutomatManager::getType() {
         }
     }
 
-
-    return Fehler; // Muss einen anderen Wert bekommen
+    return Fehler;
 }
 
 bool AutomatManager::readChar(char c) {
@@ -38,12 +37,33 @@ bool AutomatManager::readChar(char c) {
     // Prüft, ob alle Automaten verworfen haben
     if(this->automatInteger->hasRejected() && this->automatSign->hasRejected() && automatIdentifier->hasRejected()) {
         // Wenn beim 1. Zeichen der Automat verwirft, dann ist das ein ungültiges Zeichen
-        //
-        if(ctr == 1) {
+        if(ctr == 1)
             noType = true;
-        }
+
         return false;
     }
 
     return true;
+}
+
+int AutomatManager::getCharLength() {
+    TType t = this->getType();
+
+    if(t == Error) {
+        return -1; // Wenn der Typ nicht ermitelbar war
+    } else {
+        // Wenn es einen Typ gibt, dann danach prüfen
+        if(t == Integer) {
+            return automatInteger->charCtr;
+        } else if(t == Identifier || t == If || t == While) {
+            return automatIdentifier->charCtr;
+        } else {
+            return automatSign->charCtr;
+        }
+    }
+}
+
+int AutomatManager::getEndOfChar() {
+
+    return automatSign->charEnd;
 }

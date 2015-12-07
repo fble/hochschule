@@ -29,6 +29,8 @@ public:
     ~AutomatManager();
     TType getType();
     bool readChar(char c);
+    int getCharLength();
+    int getEndOfChar();
 };
 
 

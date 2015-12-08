@@ -19,7 +19,7 @@ public:
         strcpy(this->value, value);
     };
 
-    virtual ~InfoToken() { };
+    virtual ~InfoToken() { delete[] value; };
 
     virtual char *getInfo() override { return value; };
 

@@ -7,7 +7,11 @@ AutomatManager::AutomatManager() {
     this->automatSign = new AutomatSign();
 }
 
-AutomatManager::~AutomatManager() {}
+AutomatManager::~AutomatManager() {
+    delete automatIdentifier;
+    delete automatInteger;
+    delete automatSign;
+}
 
 TType AutomatManager::getType() {
     if(validType) {

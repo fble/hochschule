@@ -23,7 +23,7 @@ class Token {
 
     };
 
-    ~Token() { };
+    ~Token() { delete info; };
 
     int getLine() { return line; };
 

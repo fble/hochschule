@@ -9,7 +9,7 @@
 #include "../includes/InfoInt.h"
 
 Token *ScannerImp::nextToken() {
-	if(!skip_spaces()){
+	if(skip_spaces()){
 		return NULL;
 	};
 	int X_Anfang = x;
@@ -52,7 +52,7 @@ unsigned int ScannerImp::runMachines()
 }
 
 bool ScannerImp::skip_spaces(){
-	bool not_end = true;
+	bool end_of_file = false;
 	while(1){
 		char tmp = *buffer->getChar();
 		if(tmp == ' '){
@@ -63,13 +63,13 @@ bool ScannerImp::skip_spaces(){
 		}else if(tmp == '\t') {
 			x++;
 		}else if(tmp == '\0'){
-			not_end = false;
+			end_of_file = true;
 		}else {
 			buffer->ungetChar();
 			break;
 		}
 	}
-	return not_end;
+	return end_of_file;
 }
 
 ScannerImp::ScannerImp(char *filepath)

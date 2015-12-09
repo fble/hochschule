@@ -45,10 +45,10 @@ TType AutomatSign::getType() {
 		case STATE_AND: 					return And;
 		case STATE_NOT: 					return Not;
 		case STATE_SEMICOLON: 				return Semicolon;
-		case STATE_OPENINGROUNDBRACKET: 	return OpeningRoundBracket;
-		case STATE_CLOSINGROUNDBRACKET: 	return ClosingRoundBracket;
-		case STATE_OPENINGSQUAREBRACKET: 	return OpeningSquareBracket;
-		case STATE_CLOSINGSQUAREBRACKET: 	return ClosingSquareBracket;
+		case STATE_OPENINGROUNDBRACKET: 	return OR_Bracket;
+		case STATE_CLOSINGROUNDBRACKET: 	return CR_Bracket;
+		case STATE_OPENINGSQUAREBRACKET: 	return OS_Bracket;
+		case STATE_CLOSINGSQUAREBRACKET: 	return CS_Bracket;
 		case STATE_OPENINGBRACE: 			return OpeningBrace;
 		case STATE_CLOSINGBRACE: 			return ClosingBrace;
 		default:							return Fehler;

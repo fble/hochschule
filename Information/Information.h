@@ -4,14 +4,16 @@
 
 #ifndef COMPILER_INFORMATION_H
 #define COMPILER_INFORMATION_H
-
+template <typename T>
 class Information {
 public:
-    virtual char *getInfo() = 0;
+
+    virtual T getInfo() = 0;
 
     virtual int getX() = 0;
 
     virtual int getY() = 0;
+
 };
 
 #endif //COMPILER_INFORMATION_H

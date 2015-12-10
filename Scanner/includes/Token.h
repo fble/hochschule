@@ -12,10 +12,10 @@ class Token {
     int line;
     int column;
     TType tType;
-    Information *info;
+    void *info;
     public:
-
-    Token(TType typ,int x, int y, Information *info) {
+    template <typename T>
+    Token(TType typ,int x, int y, Information <T> *info) {
         this->tType = typ;
         this->column = x;
         this->line = y;
@@ -28,8 +28,8 @@ class Token {
     int getLine() { return line; };
 
     int getColumn() { return column; };
-
-    Information *getInformation() { return info; };
+    template <typename T>
+    Information <T> *getInformation() { return (Information <T> *)info; };
 
     TType getType() {return tType;};
 

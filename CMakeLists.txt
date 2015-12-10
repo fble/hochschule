@@ -25,9 +25,8 @@ set(SOURCE_FILES
         Symboltable/src/Symboltable.cpp
         Symboltable/src/SymtabEntry.cpp
 
-        Scanner/includes/InfoToken.h
+        Scanner/includes/InfoError.h
         Scanner/includes/Scanner.h
-        Scanner/includes/IScanner.h
         Scanner/includes/ScannerImp.h
         Scanner/includes/Token.h
         Scanner/includes/TType.h
@@ -39,7 +38,7 @@ set(SOURCE_FILES
         #Buffer/src/TestBuffer.cpp
         #Automat/src/TestAutomat.cpp
         #Symboltable/src/TestSymboltable.cpp
-        )
+        Scanner/includes/InfoInt.h Scanner/includes/InfoInt.h)
 
 
 add_executable(hochschule ${SOURCE_FILES})

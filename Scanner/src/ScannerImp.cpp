@@ -6,9 +6,12 @@
  */
 
 #include "../includes/ScannerImp.h"
+#include "../includes/InfoInt.h"
 
 Token *ScannerImp::nextToken() {
-	skip_spaces();
+	if(skip_spaces()){
+		return NULL;
+	};
 	int X_Anfang = x;
 	int Y_Anfang = y;
 	const unsigned int wortlaenge = runMachines();
@@ -22,18 +25,18 @@ Token *ScannerImp::nextToken() {
 		auto info = symboltable->insert(tmp, X_Anfang, Y_Anfang);
 		switch (info->getX()) {
 			case -1:
-				typ = If; break;
+				typ = If;break;
 			case -2:
-				typ = While;
+				typ = While;break;
 			default:;
 		}
 		return new Token(typ, X_Anfang, Y_Anfang, info);
 	}else if(typ == Fehler) {
 		buffer->getChar();
-		return new Token(typ, X_Anfang, Y_Anfang, new InfoToken(tmp));
-	} else {
-		return new Token(typ, X_Anfang, Y_Anfang, new InfoToken(tmp));
+	}else if(typ == Integer) {
+		return new Token(typ,X_Anfang, Y_Anfang, new InfoInt(tmp));
 	}
+	return new Token(typ, X_Anfang, Y_Anfang, new InfoError(tmp));
 }
 
 unsigned int ScannerImp::runMachines()
@@ -44,10 +47,12 @@ unsigned int ScannerImp::runMachines()
 		wortlaenge++;
 		x++;
 	}
+	if (wortlaenge == 0)wortlaenge = 1;
 	return wortlaenge;
 }
 
-void ScannerImp::skip_spaces(){
+bool ScannerImp::skip_spaces(){
+	bool end_of_file = false;
 	while(1){
 		char tmp = *buffer->getChar();
 		if(tmp == ' '){
@@ -57,11 +62,14 @@ void ScannerImp::skip_spaces(){
 			y++;
 		}else if(tmp == '\t') {
 			x++;
-		} else {
+		}else if(tmp == '\0'){
+			end_of_file = true;
+		}else {
 			buffer->ungetChar();
 			break;
 		}
 	}
+	return end_of_file;
 }
 
 ScannerImp::ScannerImp(char *filepath)

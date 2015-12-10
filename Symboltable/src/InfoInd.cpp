@@ -33,5 +33,3 @@ int InfoInd::getY()
 {
 	return y;
 }
-
-

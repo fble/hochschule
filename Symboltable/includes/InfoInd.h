@@ -10,7 +10,7 @@
 
 #include "../../Information/Information.h"
 
-class InfoInd : public Information {
+class InfoInd : public Information <char*>{
 private:
 	char* name;
 	int x;
@@ -24,6 +24,7 @@ public:
 	int getX() override;
 
 	int getY() override;
+
 };
 
 #endif /* SYMBOLTABLE_INCLUDES_INFOIND_H_ */

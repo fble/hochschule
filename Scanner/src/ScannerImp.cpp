@@ -14,45 +14,53 @@ Token *ScannerImp::nextToken() {
 	};
 	int X_Anfang = x;
 	int Y_Anfang = y;
-	const unsigned int wortlsaenge = runMachines();
+	runMachines();
 	TType typ = manager->getType();
-	const unsigned int wortlaenge = manager->getLexemLength();
-	x+=wortlaenge;
-	char tmp[wortlaenge + 1];
-	memcpy(tmp, tokenAnfang, wortlaenge);
-	tmp[wortlaenge] = '\0';
-
-	int a = manager->getEndOfChar();
-	manager->reset();
-	buffer->ungetChar(a);
-	if (typ == Identifier) {
-		auto info = symboltable->insert(tmp, X_Anfang, Y_Anfang);
-		switch (info->getX()) {
-			case -1:
-				typ = If;break;
-			case -2:
-				typ = While;break;
-			default:;
-		}
-		return new Token(typ, X_Anfang, Y_Anfang, info);
-	}else if(typ == Fehler) {
-		buffer->getChar();
-	}else if(typ == Integer) {
-		return new Token(typ,X_Anfang, Y_Anfang, new InfoInt(tmp));
+	if(typ == CommentBegin){
+		skip_comment();
+		typ = manager->getType();
 	}
-	return new Token(typ, X_Anfang, Y_Anfang, new InfoError(tmp));
+	int wortlaenge = manager->getLexemLength();
+	x+=wortlaenge;
+	int a = manager->getEndOfChar();
+	buffer->ungetChar(a);
+
+	return createToken(typ,wortlaenge,X_Anfang,Y_Anfang);
 }
 
-unsigned int ScannerImp::runMachines()
-{
-	unsigned int wortlaenge = 0;
-	this->tokenAnfang = buffer->getCharPointer();
-	while(manager->readChar(*buffer->getChar())){
-		//wortlaenge++;
-		//x++;
+Token *ScannerImp::createToken(TType typ,int wortlaenge,int X_Anfang,int Y_Anfang){
+	char tmp[wortlaenge + 1];
+	memcpy(tmp, tokenAnfang, (size_t) wortlaenge);
+	tmp[wortlaenge] = '\0';
+	Information <char*>* info;
+	switch(typ) {
+		case Identifier:
+			info = symboltable->insert(tmp, X_Anfang, Y_Anfang);
+			switch (info->getX()) {
+				case -1:
+					typ = If;
+					break;
+				case -2:
+					typ = While;
+					break;
+				default:;
+			}
+			return new Token(typ, X_Anfang, Y_Anfang, info);
+		case Integer:
+			return new Token(typ, X_Anfang, Y_Anfang, new InfoInt(tmp));
+		case Fehler:
+			buffer->getChar();
+			return new Token(typ, X_Anfang, Y_Anfang, new InfoError(tmp));
+		default:
+			return new Token(typ, X_Anfang, Y_Anfang, new InfoError(""));
 	}
-	//if (wortlaenge == 0)wortlaenge = 1;
-	return manager->getLexemLength();
+}
+
+void ScannerImp::runMachines()
+{
+	manager->reset();
+	this->tokenAnfang = buffer->getCharPointer();
+	while(manager->readChar(*buffer->getChar()));
 }
 
 bool ScannerImp::skip_spaces(){
@@ -90,3 +98,12 @@ ScannerImp::~ScannerImp() {
 	delete manager;
 }
 
+void ScannerImp::skip_comment() {
+	TType typ = GreaterThan;
+	while (typ != CommentEnd || skip_spaces()){
+		runMachines();
+		typ = manager->getType();
+	}
+	buffer->ungetChar(1);
+	runMachines();
+}

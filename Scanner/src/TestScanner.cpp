@@ -2,7 +2,7 @@
 
 
 int main(int argc, char **argv) {
-    ScannerImp *scanner = new ScannerImp((char *) "/home/stefan/test.txt");
+    ScannerImp *scanner = new ScannerImp((char *) "/home/fble/Desktop/hochschule/test.txt");
     Token *token;
     int i = 0;
     while((token = scanner->nextToken())) {

@@ -46,8 +46,8 @@ void Symboltable::init()
 {
 	insert((char *) "if", -1, -1);
 	insert((char *) "IF", -1, -1);
-	insert((char *) "while", -1, -1);
-	insert((char *) "WHILE", -1, -1);
+	insert((char *) "while", -2, -2);
+	insert((char *) "WHILE", -2, -2);
 }
 
 Information <char*>*Symboltable::lookup(char *lexem)

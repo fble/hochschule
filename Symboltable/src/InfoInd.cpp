@@ -1,3 +1,4 @@
+#include <string.h>
 #include "../includes/InfoInd.h"
 
 InfoInd::InfoInd(char *value, int x, int y) {
@@ -8,7 +9,8 @@ InfoInd::InfoInd(char *value, int x, int y) {
 
 bool InfoInd::compareLex(char * lexem)
 {
-	char* tmp = name;
+	return strcmp(this->name,lexem) == 0;
+	/*char* tmp = name;
 	while (*tmp != '\0') {
 		if (*tmp != *lexem) {
 			return false;
@@ -17,6 +19,7 @@ bool InfoInd::compareLex(char * lexem)
 		lexem++;
 	}
 	return *tmp == *lexem;
+	 */
 }
 
 char * InfoInd::getInfo()

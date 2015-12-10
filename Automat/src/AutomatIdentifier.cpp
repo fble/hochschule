@@ -13,7 +13,7 @@ void AutomatIdentifier::doTransition(State currState, char c) {
 		if (matrixKeyWords[i].currState == currState && (c == matrixKeyWords[i].cLow || c == matrixKeyWords[i].cHigh)) {
 			this->currState = matrixKeyWords[i].nextState;
 			matchFound = true;
-			charCtr++;
+			//charCtr++;
 			break;
 		}
 	}
@@ -24,7 +24,7 @@ void AutomatIdentifier::doTransition(State currState, char c) {
 				if (((int) c >= matrixFirstChar[i].rangeMin && (int) c <= matrixFirstChar[i].rangeMax)) {
 					this->currState = matrixFirstChar[i].nextState;
 					matchFound = true;
-					charCtr++;
+					//charCtr++;
 					break;
 				}
 			}
@@ -37,24 +37,24 @@ void AutomatIdentifier::doTransition(State currState, char c) {
 				if(((int) c >= matrixIdentifier[i].rangeMin && (int) c <= matrixIdentifier[i].rangeMax)) {
 					this->currState = matrixIdentifier[i].nextState;
 					matchFound = true;
-					charCtr++;
+
 					break;
 				}
 			}
 		}
 
 	}
-
+	charCtr++;
 
 
 	this->lastState = this->currState;
 
 	if(!matchFound) setCurrentState(STATE_NULL);
 
-	setFinal((this->currState == STATE_FINAL || this->currState == STATE_IF || this->currState == STATE_WHILE) && matchFound);
+	setFinal((this->currState != STATE_0 && this->currState != STATE_NULL) && matchFound);
 
 	if(isFinal())
-		this->charEnd = charCtr;
+		this->lexemLength = charCtr;
 }
 
 void AutomatIdentifier::readChar(char c) {
@@ -74,6 +74,6 @@ void AutomatIdentifier::reset() {
 	this->setCurrentState(STATE_0);
 	this->lastState = STATE_0;
 	setFinal(false);
-	charCtr =-1;
-	charEnd = -1;
+	charCtr =0;
+	lexemLength = -1;
 }

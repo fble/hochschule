@@ -39,6 +39,8 @@ public:
             case CS_Bracket: tmp = "CS_Bracket"; break;
             case OpeningBrace: tmp = "OpeningBrace"; break;
             case ClosingBrace: tmp = "ClosingBrace"; break;
+            case CommentBegin: tmp = "CommentBegin"; break;
+            case CommentEnd: tmp = "CommentEnd"; break;
             default: tmp = "NoType";
         }
 

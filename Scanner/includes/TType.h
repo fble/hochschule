@@ -30,7 +30,9 @@ typedef enum {
     OS_Bracket,
     CS_Bracket,
     OpeningBrace,
-    ClosingBrace
+    ClosingBrace,
+    CommentBegin,
+    CommentEnd
 
 } TType;
 

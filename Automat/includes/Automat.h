@@ -34,7 +34,9 @@ public:
 			STATE_OPENINGSQUAREBRACKET,
 			STATE_CLOSINGSQUAREBRACKET,
 			STATE_OPENINGBRACE,
-			STATE_CLOSINGBRACE
+			STATE_CLOSINGBRACE,
+			STATE_COMMENT_BEGIN,
+			STATE_COMMENT_END
 		} State;
 
 	bool final;
@@ -46,12 +48,12 @@ public:
 	 * In dem Zähler wird die Anzahl der gültigen durchlaufenen
 	 * Zustände gespeichert.
 	 */
-	int charCtr = -1;
+	int charCtr = 0;
 
 	/**
 	 * Ist die "Endmarke" des gültigen Lexems.
 	 */
-	int charEnd = -1;
+	int lexemLength = -1;
 public:
 	Automat();
 	virtual ~Automat();
@@ -64,6 +66,7 @@ public:
 	bool hasRejected() {return this->currState == STATE_NULL;};
 	void setFinal(bool state) {this->final = state;};
 	void setCurrentState(State newState) {this->currState = newState;};
+	int getLexemLength() {return this->lexemLength;};
 };
 
 #endif /* Automat_H_ */

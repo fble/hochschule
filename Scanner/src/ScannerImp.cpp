@@ -14,13 +14,17 @@ Token *ScannerImp::nextToken() {
 	};
 	int X_Anfang = x;
 	int Y_Anfang = y;
-	const unsigned int wortlaenge = runMachines();
+	const unsigned int wortlsaenge = runMachines();
+	TType typ = manager->getType();
+	const unsigned int wortlaenge = manager->getLexemLength();
+	x+=wortlaenge;
 	char tmp[wortlaenge + 1];
 	memcpy(tmp, tokenAnfang, wortlaenge);
 	tmp[wortlaenge] = '\0';
-	TType typ = manager->getType();
+
+	int a = manager->getEndOfChar();
 	manager->reset();
-	buffer->ungetChar();
+	buffer->ungetChar(a);
 	if (typ == Identifier) {
 		auto info = symboltable->insert(tmp, X_Anfang, Y_Anfang);
 		switch (info->getX()) {
@@ -44,11 +48,11 @@ unsigned int ScannerImp::runMachines()
 	unsigned int wortlaenge = 0;
 	this->tokenAnfang = buffer->getCharPointer();
 	while(manager->readChar(*buffer->getChar())){
-		wortlaenge++;
-		x++;
+		//wortlaenge++;
+		//x++;
 	}
-	if (wortlaenge == 0)wortlaenge = 1;
-	return wortlaenge;
+	//if (wortlaenge == 0)wortlaenge = 1;
+	return manager->getLexemLength();
 }
 
 bool ScannerImp::skip_spaces(){
@@ -65,7 +69,7 @@ bool ScannerImp::skip_spaces(){
 		}else if(tmp == '\0'){
 			end_of_file = true;
 		}else {
-			buffer->ungetChar();
+			buffer->ungetChar(1);
 			break;
 		}
 	}

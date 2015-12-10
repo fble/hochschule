@@ -38,6 +38,8 @@ private:
      */
     int endOfChar;
 
+    int lexemLength;
+
     int ctr;
 public:
     AutomatManager();
@@ -46,6 +48,7 @@ public:
     bool readChar(char c);
     int getEndOfChar();
     void reset();
+    int getLexemLength() {return this->lexemLength;};
 };
 
 

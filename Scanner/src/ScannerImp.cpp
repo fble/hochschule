@@ -22,7 +22,7 @@ Token *ScannerImp::nextToken() {
 		auto info = symboltable->insert(tmp, X_Anfang, Y_Anfang);
 		switch (info->getX()) {
 			case -1:
-				typ = If;
+				typ = If; break;
 			case -2:
 				typ = While;
 			default:;

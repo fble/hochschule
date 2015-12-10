@@ -63,8 +63,8 @@ void AutomatIdentifier::readChar(char c) {
 
 TType AutomatIdentifier::getType() {
 	switch(this->lastState) {
-		case STATE_IF: return If;
-		case STATE_WHILE: return While;
+		//case STATE_IF: return If;
+		//case STATE_WHILE: return While;
 		case STATE_FINAL: return Identifier;
 		default: return Identifier; // Oder Fehler
 	}

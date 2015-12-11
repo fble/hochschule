@@ -47,16 +47,6 @@ public:
         return tmp;
     }
 
-    static void printValue(Token *token){
-        auto typ = token->getType();
-        if (typ == Identifier) {
-            cout << "Lexem: " << token->getInformation<char *>()->getInfo();
-        } else if (typ == Integer) {
-            cout << "Value: " << token->getInformation<int>()->getInfo();
-        } else if (typ == Fehler) {
-            cout << "Value: " << token->getInformation<char>()->getInfo();
-        }
-    }
 };
 
 #endif //COMPILER_SCANNER_H_H

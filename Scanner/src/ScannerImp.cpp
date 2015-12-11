@@ -9,26 +9,18 @@
 #include "../includes/InfoInt.h"
 
 Token *ScannerImp::nextToken() {
-	if(skip_spaces()){
-		return NULL;
-	};
-	int X_Anfang = x;
-	int Y_Anfang = y;
+	if(skip_spaces())return NULL;
 	runMachines();
 	TType typ = manager->getType();
-	if(typ == CommentBegin){
-		skip_comment();
-		typ = manager->getType();
-	}
+	skip_comment(&typ);
 	int wortlaenge = manager->getLexemLength();
-	x+=wortlaenge;
-	int a = manager->getEndOfChar();
-	buffer->ungetChar(a);
-
-	return createToken(typ,wortlaenge,X_Anfang,Y_Anfang);
+	int wrongChars = manager->getEndOfChar();
+	buffer->ungetChar(wrongChars);
+	return createToken(typ,wortlaenge,x,y);
 }
 
 Token *ScannerImp::createToken(TType typ,int wortlaenge,int X_Anfang,int Y_Anfang){
+	x+=wortlaenge;
 	char tmp[wortlaenge + 1];
 	memcpy(tmp, tokenAnfang, (size_t) wortlaenge);
 	tmp[wortlaenge] = '\0';
@@ -43,17 +35,17 @@ Token *ScannerImp::createToken(TType typ,int wortlaenge,int X_Anfang,int Y_Anfan
 				case -2:
 					typ = While;
 					break;
-				default:;
+				default:break;
 			}
-			return new Token(typ, X_Anfang, Y_Anfang, info);
+			break;
 		case Integer:
 			return new Token(typ, X_Anfang, Y_Anfang, new InfoInt(tmp));
 		case Fehler:
 			buffer->getChar();
 			return new Token(typ, X_Anfang, Y_Anfang, new InfoError(tmp));
-		default:
-			return new Token(typ, X_Anfang, Y_Anfang, new InfoError(""));
+		default:break;
 	}
+	return new Token(typ, X_Anfang, Y_Anfang, info);
 }
 
 void ScannerImp::runMachines()
@@ -98,12 +90,14 @@ ScannerImp::~ScannerImp() {
 	delete manager;
 }
 
-void ScannerImp::skip_comment() {
-	TType typ = GreaterThan;
-	while (typ != CommentEnd || skip_spaces()){
+void ScannerImp::skip_comment(TType *typ) {
+	if(*typ == CommentBegin) {
+		while (*typ != CommentEnd || skip_spaces()) {
+			runMachines();
+			*typ = manager->getType();
+		}
+		buffer->ungetChar(1);
 		runMachines();
-		typ = manager->getType();
+		*typ = manager->getType();
 	}
-	buffer->ungetChar(1);
-	runMachines();
 }

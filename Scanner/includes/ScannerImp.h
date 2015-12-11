@@ -37,7 +37,7 @@ public:
 
     Token *createToken(TType typ,int wortlaenge,int X_Anfang,int Y_Anfang);
 
-    void skip_comment();
+    void skip_comment(TType *typ);
 };
 
 

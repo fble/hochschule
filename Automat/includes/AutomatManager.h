@@ -103,7 +103,7 @@ public:
      */
     int getLexemLength() {return this->lexemLength;};
 
-    TType returnChar(int ctr, Automat *automat);
+    TType returnChar(Automat *automat);
 };
 
 

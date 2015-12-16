@@ -30,11 +30,11 @@ TType AutomatManager::getType() {
             }
         } else {
             if(!this->identifierRejected && this->integerRejected && this->signRejected) {
-                return returnChar(ctr,automatIdentifier);
+                return returnChar(automatIdentifier);
             } else if(this->identifierRejected && !this->integerRejected && this->signRejected) {
-                return returnChar(ctr,automatInteger);
+                return returnChar(automatInteger);
             } else if(this->identifierRejected && this->integerRejected && !this->signRejected){
-                return returnChar(ctr,automatSign);
+                return returnChar(automatSign);
             }
         }
     }
@@ -44,7 +44,7 @@ TType AutomatManager::getType() {
     return Fehler;
 }
 
-TType AutomatManager::returnChar(int ctr,Automat *automat){
+TType AutomatManager::returnChar(Automat *automat){
     this->back = ctr - automat->lexemLength;
     this->lexemLength = automat->getLexemLength();
     return automat->getType();

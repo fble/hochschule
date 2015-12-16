@@ -55,7 +55,7 @@ private:
 
 
     /**
-     *
+     * Enthält die Länge des Lexems von dem Automat, der zuletzt kazeptiert hat.
      */
     int lexemLength;
 

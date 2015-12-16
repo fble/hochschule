@@ -14,7 +14,7 @@ Token *ScannerImp::nextToken() {
 	TType typ = manager->getType();
 	skip_comment(&typ);
 	int wortlaenge = manager->getLexemLength();
-	int wrongChars = manager->getEndOfChar();
+	int wrongChars = manager->ungetCtr();
 	buffer->ungetChar(wrongChars);
 	return createToken(typ,wortlaenge,x,y);
 }

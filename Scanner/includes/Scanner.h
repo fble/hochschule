@@ -39,22 +39,14 @@ public:
             case CS_Bracket: tmp = "CS_Bracket"; break;
             case OpeningBrace: tmp = "OpeningBrace"; break;
             case ClosingBrace: tmp = "ClosingBrace"; break;
+            case CommentBegin: tmp = "CommentBegin"; break;
+            case CommentEnd: tmp = "CommentEnd"; break;
             default: tmp = "NoType";
         }
 
         return tmp;
     }
 
-    static void printValue(Token *token){
-        auto typ = token->getType();
-        if (typ == Identifier) {
-            cout << "Lexem: " << token->getInformation<char *>()->getInfo();
-        } else if (typ == Integer) {
-            cout << "Value: " << token->getInformation<int>()->getInfo();
-        } else if (typ == Fehler) {
-            cout << "Value: " << token->getInformation<char>()->getInfo();
-        }
-    }
 };
 
 #endif //COMPILER_SCANNER_H_H

@@ -70,6 +70,6 @@ char* Buffer::getCharPointer() {
 	return a+index;
 }
 
-void Buffer::ungetChar() {
-	index--;
+void Buffer::ungetChar(int digits) {
+	index-=digits;
 }

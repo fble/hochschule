@@ -24,7 +24,7 @@ class ScannerImp: public Scanner{
 	char *tokenAnfang;
 	int x, y;
 
-	unsigned int runMachines();
+	void runMachines();
     bool skip_spaces();
 
 public:
@@ -35,6 +35,9 @@ public:
 
 	Token *nextToken()override;
 
+    Token *createToken(TType typ,int wortlaenge,int X_Anfang,int Y_Anfang);
+
+    void skip_comment(TType *typ);
 };
 
 

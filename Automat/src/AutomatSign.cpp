@@ -9,22 +9,26 @@ AutomatSign::~AutomatSign() {}
 
 void AutomatSign::doTransition(State currState, char c) {
 	bool matchFound = false;
-	for(int i = 0; i<20; i++) {
+	for(int i = 0; i<21; i++) {
 		if(matrix[i].currState == currState && matrix[i].c == c) {
 			this->currState = matrix[i].nextState;
 			matchFound = true;
-			charCtr++;
+
 			break;
 		}
 	}
+	this->charCtr++;
 	this->lastState = this->currState;
 
 	if(!matchFound) setCurrentState(STATE_NULL);
 
 	setFinal((this->currState != STATE_0 && this->currState != STATE_1 && this->currState != STATE_NULL) && matchFound);
 
-	if(isFinal())
-		this->charEnd = charCtr;
+	if(isFinal()) {
+		this->lexemLength = charCtr;
+		this->lastAcceptingState = this->lastState;
+	}
+
 }
 
 void AutomatSign::readChar(char c) {
@@ -32,7 +36,7 @@ void AutomatSign::readChar(char c) {
 }
 
 TType AutomatSign::getType() {
-	switch(this->lastState) {
+	switch(this->lastAcceptingState) {
 		case STATE_PLUS: 					return Plus;
 		case STATE_MINUS: 					return Minus;
 		case STATE_STAR: 					return Stern;
@@ -51,6 +55,8 @@ TType AutomatSign::getType() {
 		case STATE_CLOSINGSQUAREBRACKET: 	return CS_Bracket;
 		case STATE_OPENINGBRACE: 			return OpeningBrace;
 		case STATE_CLOSINGBRACE: 			return ClosingBrace;
+		case STATE_COMMENT_BEGIN:			return CommentBegin;
+		case STATE_COMMENT_END:				return CommentEnd;
 		default:							return Fehler;
 	};
 }
@@ -58,7 +64,8 @@ TType AutomatSign::getType() {
 void AutomatSign::reset() {
 	this->setCurrentState(STATE_0);
 	this->lastState = STATE_0;
+	this->lastAcceptingState = STATE_0;
 	setFinal(false);
-	charCtr =-1;
-	charEnd = -1;
+	charCtr =0;
+	lexemLength = -1;
 }

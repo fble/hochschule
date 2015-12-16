@@ -1,5 +1,4 @@
 #include "../includes/AutomatInteger.h"
-#include <iostream>
 
 AutomatInteger::AutomatInteger() {
 	setCurrentState(STATE_0);
@@ -8,10 +7,12 @@ AutomatInteger::AutomatInteger() {
 AutomatInteger::~AutomatInteger() {}
 
 void AutomatInteger::doTransition(State currState, char c) {
-	bool matchFound = false;
-	for(int i = 0; i<20; i++) {
-		if(matrix[i].currState == currState && matrix[i].c == c) {
-			this->currState = matrix[i].nextState;
+	bool matchFound = false; // Prüfvariable, ob eine passende Transition in der Schleife gefunden wird
+
+	// Durchläuft die Menge gültiger Transitionen und prüft, ob es eine passende Transition gibt.
+	for(int i = 0; i<2; i++) {
+		if(matrix[i].currState == currState && (int) c >= matrix[i].rangeMin && (int) c <= matrix[i].rangeMax) {
+			this->currState = matrix[i].nextState; // Zustand aktualisieren
 			matchFound = true;
 
 			break;
@@ -20,13 +21,12 @@ void AutomatInteger::doTransition(State currState, char c) {
 	charCtr++;
 	this->lastState = this->currState;
 
-	if(!matchFound) setCurrentState(STATE_NULL);
+	if(!matchFound) setCurrentState(STATE_NULL); // Wenn kein match existiert, dann verwirft Automat
 
-	setFinal(this->currState == STATE_FINAL && matchFound);
+	setFinal(this->currState == STATE_FINAL && matchFound); // Final-Zustand wird gesetzt
 
 	// Wenn der Automat in einem Endzustand ist,
-	// dann wird die "Endmarke" neu gesetzt mit dem
-	// aktuellen Zählerstand
+	// dann wird die "Endmarke" neu gesetzt mit dem aktuellen Zählerstand
 	if(isFinal())
 		this->lexemLength = charCtr;
 }

@@ -16,8 +16,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Buffer/src/Buffer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Information/Information.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/InfoInt.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/InfoError.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/InfoInt.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/Scanner.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/ScannerImp.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/TType.h" isTestSource="false" />
@@ -37,18 +37,18 @@
       <library name="Header Search Paths">
         <CLASSES>
           <root url="file:///usr/include" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include/cilk" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include/sanitizer" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include/cilk" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include/sanitizer" />
           <root url="file:///usr/local/include" />
         </CLASSES>
         <SOURCES>
           <root url="file:///usr/include" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include/cilk" />
-          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/5/include/sanitizer" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include/cilk" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include/sanitizer" />
           <root url="file:///usr/local/include" />
         </SOURCES>
       </library>

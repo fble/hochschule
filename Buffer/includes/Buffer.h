@@ -38,7 +38,7 @@ public:
 	~Buffer() {delete[] buf1;};
 	char* getChar();
 	char* getCharPointer();
-	void ungetChar();
+	void ungetChar(int digits);
 };
 
 #endif /* BUFFER_H_ */

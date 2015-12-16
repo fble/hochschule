@@ -13,11 +13,11 @@ void AutomatInteger::doTransition(State currState, char c) {
 		if(matrix[i].currState == currState && matrix[i].c == c) {
 			this->currState = matrix[i].nextState;
 			matchFound = true;
-			charCtr++;
+
 			break;
 		}
 	}
-
+	charCtr++;
 	this->lastState = this->currState;
 
 	if(!matchFound) setCurrentState(STATE_NULL);
@@ -28,7 +28,7 @@ void AutomatInteger::doTransition(State currState, char c) {
 	// dann wird die "Endmarke" neu gesetzt mit dem
 	// aktuellen Zählerstand
 	if(isFinal())
-		this->charEnd = charCtr;
+		this->lexemLength = charCtr;
 }
 
 void AutomatInteger::readChar(char c) {
@@ -46,6 +46,6 @@ void AutomatInteger::reset() {
 	this->setCurrentState(STATE_0);
 	this->lastState = STATE_0;
 	setFinal(false);
-	charCtr =-1;
-	charEnd = -1;
+	charCtr =0;
+	lexemLength = -1;
 }

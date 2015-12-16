@@ -102,6 +102,8 @@ public:
      * Gibt die tatsächliche Länge des Lexems zurück.
      */
     int getLexemLength() {return this->lexemLength;};
+
+    TType returnChar(int ctr, Automat *automat);
 };
 
 

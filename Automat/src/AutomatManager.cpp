@@ -17,36 +17,37 @@ TType AutomatManager::getType() {
         if(ctr == 1) {
             this->back = ctr;
             this->lexemLength = ctr;
+            bool identifier = this->automatIdentifier->hasRejected();
+            bool integer = this->automatInteger->hasRejected();
+            bool sign = this->automatSign->hasRejected();
 
-            if(!this->automatIdentifier->hasRejected() && this->automatInteger->hasRejected() && this->automatSign->hasRejected()) {
+            if(!identifier && integer && sign) {
                 return automatIdentifier->getType();
-            } else if(this->automatIdentifier->hasRejected() && !this->automatInteger->hasRejected() && this->automatSign->hasRejected()) {
+            } else if(identifier && !integer && sign) {
                 return automatInteger->getType();
-            } else if(this->automatIdentifier->hasRejected() && this->automatInteger->hasRejected() && !this->automatSign->hasRejected()) {
+            } else if(identifier && integer && !sign) {
                 return automatSign->getType();
             }
         } else {
             if(!this->identifierRejected && this->integerRejected && this->signRejected) {
-                this->back = ctr - automatIdentifier->lexemLength;
-                this->lexemLength = automatIdentifier->getLexemLength();
-                return automatIdentifier->getType();
+                return returnChar(ctr,automatIdentifier);
             } else if(this->identifierRejected && !this->integerRejected && this->signRejected) {
-                this->back = ctr - automatInteger->lexemLength;
-                this->lexemLength = automatInteger->getLexemLength();
-                return automatInteger->getType();
+                return returnChar(ctr,automatInteger);
             } else if(this->identifierRejected && this->integerRejected && !this->signRejected){
-                this->back = ctr - automatSign->lexemLength;
-                this->lexemLength = automatSign->getLexemLength();
-                return automatSign->getType();
+                return returnChar(ctr,automatSign);
             }
         }
-
     }
-
     this->back =1;
     this->lexemLength = 1;
 
     return Fehler;
+}
+
+TType AutomatManager::returnChar(int ctr,Automat *automat){
+    this->back = ctr - automat->lexemLength;
+    this->lexemLength = automat->getLexemLength();
+    return automat->getType();
 }
 
 bool AutomatManager::readChar(char c) {

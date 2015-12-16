@@ -16,8 +16,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Buffer/src/Buffer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Information/Information.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/InfoInt.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/InfoError.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/InfoInt.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/Scanner.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/ScannerImp.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Scanner/includes/TType.h" isTestSource="false" />

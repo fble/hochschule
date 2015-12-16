@@ -25,13 +25,17 @@ typedef enum {
     And,
     Not,
     Semicolon,
-    OpeningRoundBracket,
-    ClosingRoundBracket,
-    OpeningSquareBracket,
-    ClosingSquareBracket,
+    OR_Bracket,
+    CR_Bracket,
+    OS_Bracket,
+    CS_Bracket,
     OpeningBrace,
-    ClosingBrace
+    ClosingBrace,
+    CommentBegin,
+    CommentEnd
 
 } TType;
+
+
 
 #endif //SYSPROG_TTYPE_H

@@ -18,9 +18,9 @@ public:
 	Symboltable();
 	~Symboltable();
 
-	Information *insert(char *lexem, int x, int y);
+	Information <char*>*insert(char *lexem, int x, int y);
 
-	Information *lookup(char *lexem);
+	Information <char*>*lookup(char *lexem);
 	void init();
 };
 

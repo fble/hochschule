@@ -12,13 +12,13 @@ Buffer::Buffer(char* filePath) {
 
 	createBufSize(filePath);
 
-	cout << "BUFFER_SIZE: " << BUFFER_SIZE << " Bytes" << endl;
+	//cout << "BUFFER_SIZE: " << BUFFER_SIZE << " Bytes" << endl;
 
 	// Datei mit Pfad und Modus öffnen
 	file_descripter = open(filePath, O_RDONLY | O_DIRECT);
 
 	if(file_descripter < 0) {
-		cout << "Error";
+		cout << "File descriptor error";
 	}
 
 	// n bytes Speicher reservierung mit 1024 bytes Ausrichtung
@@ -31,7 +31,7 @@ Buffer::Buffer(char* filePath) {
 
 	currentChar = *((char*) buf1); 	// !! NUR FÜR TEST
 
-	cout << "READ: " << bytes_read << " Bytes" << endl;
+	//cout << "READ: " << bytes_read << " Bytes" << endl;
 }
 
 void Buffer::createBufSize(char* filePath) {
@@ -48,6 +48,8 @@ void Buffer::createBufSize(char* filePath) {
 		}
 		tmp = a;
 	}
+
+	if(tmp < 512) tmp = 512;
 
 	BUFFER_SIZE = tmp;
 }
@@ -68,6 +70,6 @@ char* Buffer::getCharPointer() {
 	return a+index;
 }
 
-Buffer::~Buffer() {
-	// TODO Auto-generated destructor stub
+void Buffer::ungetChar(int digits) {
+	index-=digits;
 }

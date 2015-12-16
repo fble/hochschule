@@ -1,4 +1,5 @@
 #include "../includes/AutomatInteger.h"
+#include <iostream>
 
 AutomatInteger::AutomatInteger() {
 	setCurrentState(STATE_0);
@@ -7,18 +8,27 @@ AutomatInteger::AutomatInteger() {
 AutomatInteger::~AutomatInteger() {}
 
 void AutomatInteger::doTransition(State currState, char c) {
-	bool tmp = false;
+	bool matchFound = false;
 	for(int i = 0; i<20; i++) {
 		if(matrix[i].currState == currState && matrix[i].c == c) {
 			this->currState = matrix[i].nextState;
-			tmp = true;
-			back++;
+			matchFound = true;
+
+			break;
 		}
 	}
+	charCtr++;
+	this->lastState = this->currState;
 
-	if(!tmp) setCurrentState(STATE_NULL);
+	if(!matchFound) setCurrentState(STATE_NULL);
 
-	setFinal(this->currState == STATE_FINAL && tmp);
+	setFinal(this->currState == STATE_FINAL && matchFound);
+
+	// Wenn der Automat in einem Endzustand ist,
+	// dann wird die "Endmarke" neu gesetzt mit dem
+	// aktuellen Zählerstand
+	if(isFinal())
+		this->lexemLength = charCtr;
 }
 
 void AutomatInteger::readChar(char c) {
@@ -26,5 +36,16 @@ void AutomatInteger::readChar(char c) {
 }
 
 TType AutomatInteger::getType() {
-	return Integer;
+	switch(this->lastState) {
+		case STATE_FINAL: return Integer;
+		default: return Fehler;
+	}
+}
+
+void AutomatInteger::reset() {
+	this->setCurrentState(STATE_0);
+	this->lastState = STATE_0;
+	setFinal(false);
+	charCtr =0;
+	lexemLength = -1;
 }

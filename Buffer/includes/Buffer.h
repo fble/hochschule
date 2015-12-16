@@ -35,9 +35,10 @@ private:
 public:
 	struct stat statbuf;
 	Buffer(char* filePath);
-	virtual ~Buffer();
+	~Buffer() {delete[] buf1;};
 	char* getChar();
 	char* getCharPointer();
+	void ungetChar(int digits);
 };
 
 #endif /* BUFFER_H_ */

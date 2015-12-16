@@ -12,25 +12,29 @@ class Token {
     int line;
     int column;
     TType tType;
-    Information *info;
+    void *info;
     public:
-    Token(TType typ, int x, int y, Information *info) {
+    template <typename T>
+    Token(TType typ,int x, int y, Information <T> *info) {
         this->tType = typ;
-        this->line = y;
         this->column = x;
+        this->line = y;
         this->info = info;
+
     };
 
-    ~Token() { };
+    ~Token() { delete info; };
 
     int getLine() { return line; };
 
     int getColumn() { return column; };
+    template <typename T>
+    Information <T> *getInformation() { return (Information <T> *)info; };
 
-    Information *getInformation() { return info; };
+    TType getType() {return tType;};
 
-    TType getType() { return tType; };
-    };
 
+
+};
 
 #endif //COMPILER_TOKEN_H

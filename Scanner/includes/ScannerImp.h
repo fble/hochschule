@@ -12,33 +12,32 @@
 #include "../../Automat/includes/Automat.h"
 #include "../../Symboltable/includes/Symboltable.h"
 #include "../../Buffer/includes/Buffer.h"
-#include "InfoToken.h"
+#include "InfoError.h"
 #include "Token.h"
 #include "Scanner.h"
-#include "IScanner.h"
+#include "../../Automat/includes/AutomatManager.h"
 
-class ScannerImp : public IScanner, Scanner {
-	Automat *automatSign;
-	Automat *automatIdentifier;
-	Automat *automatInteger;
+class ScannerImp: public Scanner{
 	Symboltable *symboltable;
 	Buffer *buffer;
+	AutomatManager *manager;
 	char *tokenAnfang;
-	char *current;
-	bool identifier, integer, sign;
 	int x, y;
 
-	unsigned int runAutomats();
+	void runMachines();
+    bool skip_spaces();
 
 public:
 
-	ScannerImp();
+	ScannerImp(char *filepath);
 
 	~ScannerImp();
 
-	Token *nextToken() override;
+	Token *nextToken()override;
 
-	Token *makeToken(TType typ) override;
+    Token *createToken(TType typ,int wortlaenge,int X_Anfang,int Y_Anfang);
+
+    void skip_comment(TType *typ);
 };
 
 

@@ -7,21 +7,50 @@ AutomatManager::AutomatManager() {
     this->automatSign = new AutomatSign();
 }
 
-AutomatManager::~AutomatManager() {}
+AutomatManager::~AutomatManager() {
+    delete automatIdentifier;
+    delete automatInteger;
+    delete automatSign;
+}
 
 TType AutomatManager::getType() {
-    if(!noType) {
-        if(!this->identifierRejected && this->integerRejected && this->signRejected) {
-            return automatIdentifier->getType();
-        } else if(this->identifierRejected && !this->integerRejected && this->signRejected) {
-            return automatInteger->getType();
-        } else if(this->identifierRejected && this->integerRejected && !this->signRejected){
-            return automatSign->getType();
+    if(validType) {
+        if(ctr == 1) {
+            if(!this->automatIdentifier->hasRejected() && this->automatInteger->hasRejected() && this->automatSign->hasRejected()) {
+                this->endOfChar = automatIdentifier->lexemLength;
+                this->lexemLength = automatIdentifier->getLexemLength();
+                return automatIdentifier->getType();
+            } else if(this->automatIdentifier->hasRejected() && !this->automatInteger->hasRejected() && this->automatSign->hasRejected()) {
+                this->endOfChar = automatInteger->lexemLength;
+                this->lexemLength = automatInteger->getLexemLength();
+                return automatInteger->getType();
+            } else if(this->automatIdentifier->hasRejected() && this->automatInteger->hasRejected() && !this->automatSign->hasRejected()){
+                this->endOfChar = ctr-automatSign->lexemLength;
+                this->lexemLength = automatSign->getLexemLength();
+                return automatSign->getType();
+            }
+        } else {
+            if(!this->identifierRejected && this->integerRejected && this->signRejected) {
+                this->endOfChar = ctr-automatIdentifier->lexemLength;
+                this->lexemLength = automatIdentifier->getLexemLength();
+                return automatIdentifier->getType();
+            } else if(this->identifierRejected && !this->integerRejected && this->signRejected) {
+                this->endOfChar = ctr-automatInteger->lexemLength;
+                this->lexemLength = automatInteger->getLexemLength();
+                return automatInteger->getType();
+            } else if(this->identifierRejected && this->integerRejected && !this->signRejected){
+                this->endOfChar = ctr-automatSign->lexemLength;
+                this->lexemLength = automatSign->getLexemLength();
+                return automatSign->getType();
+            }
         }
+
     }
 
+    this->endOfChar  =1;
+    this->lexemLength = 1;
 
-    return Fehler; // Muss einen anderen Wert bekommen
+    return Fehler;
 }
 
 bool AutomatManager::readChar(char c) {
@@ -38,9 +67,30 @@ bool AutomatManager::readChar(char c) {
     // Prüft, ob alle Automaten verworfen haben
     if(this->automatInteger->hasRejected() && this->automatSign->hasRejected() && automatIdentifier->hasRejected()) {
         // Wenn beim 1. Zeichen der Automat verwirft, dann ist das ein ungültiges Zeichen
-        if(ctr == 1) noType = true;
+        if(ctr == 1)
+            validType = false;
+        else
+            validType = true;
+
         return false;
     }
 
     return true;
+}
+
+int AutomatManager::getEndOfChar() {
+    return this->endOfChar;
+}
+
+void AutomatManager::reset() {
+    signRejected = false;
+    integerRejected = false;
+    identifierRejected = false;
+    ctr = 0;
+    endOfChar = 0;
+    validType = true;
+
+    automatInteger->reset();
+    automatSign->reset();
+    automatIdentifier->reset();
 }

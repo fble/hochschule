@@ -6,79 +6,98 @@
  */
 
 #include "../includes/ScannerImp.h"
-#include"../../Automat/includes/AutomatIdentifier.h"
-#include"../../Automat/includes/AutomatInteger.h"
-#include"../../Automat/includes/AutomatSign.h"
-
-#include <string.h>
+#include "../includes/InfoInt.h"
 
 Token *ScannerImp::nextToken() {
-	this->identifier = false, sign = false, integer = false;
-	this->tokenAnfang = buffer->getCharPointer();
-	const unsigned int wortlaenge = runAutomats();
+	if(skip_spaces())return NULL;
+	runMachines();
+	TType typ = manager->getType();
+	skip_comment(&typ);
+	int wortlaenge = manager->getLexemLength();
+	int wrongChars = manager->getEndOfChar();
+	buffer->ungetChar(wrongChars);
+	return createToken(typ,wortlaenge,x,y);
+}
+
+Token *ScannerImp::createToken(TType typ,int wortlaenge,int X_Anfang,int Y_Anfang){
+	x+=wortlaenge;
 	char tmp[wortlaenge + 1];
-	memcpy(tmp, tokenAnfang, wortlaenge);
+	memcpy(tmp, tokenAnfang, (size_t) wortlaenge);
 	tmp[wortlaenge] = '\0';
-
-	if (identifier) {
-		auto *info = this->symboltable->insert(tmp, x, y);
-		return new Token(info->getX() > 0 ? Identifier : wortlaenge == 2 ? If : While, x, y, info);
+	Information <char*>* info;
+	switch(typ) {
+		case Identifier:
+			info = symboltable->insert(tmp, X_Anfang, Y_Anfang);
+			switch (info->getX()) {
+				case -1:
+					typ = If;
+					break;
+				case -2:
+					typ = While;
+					break;
+				default:break;
+			}
+			break;
+		case Integer:
+			return new Token(typ, X_Anfang, Y_Anfang, new InfoInt(tmp));
+		case Fehler:
+			buffer->getChar();
+			return new Token(typ, X_Anfang, Y_Anfang, new InfoError(tmp));
+		default:break;
 	}
-	if (sign) {
-		return new Token(Sign, x, y, new InfoToken(tmp));
-	}
-	if (integer) {
-		return new Token(Integer, x, y, new InfoToken(tmp));
-	}
-	else {
-		if (!(*tmp == ' ' || *tmp == '\n')) {
-			return new Token(Fehler, x, y, new InfoToken(tmp));
-		}
-
-	}
-	return NULL;
+	return new Token(typ, X_Anfang, Y_Anfang, info);
 }
 
-unsigned int ScannerImp::runAutomats()
+void ScannerImp::runMachines()
 {
-	unsigned int wortlaenge = 0;
-	while (!(!automatIdentifier->isFinal() && !automatSign->isFinal() && !automatInteger->isFinal())) {
+	manager->reset();
+	this->tokenAnfang = buffer->getCharPointer();
+	while(manager->readChar(*buffer->getChar()));
+}
 
-		current = buffer->getChar();
-		x++;
-		identifier = automatIdentifier->isFinal();
-		sign = automatSign->isFinal();
-		integer = automatInteger->isFinal();
-		wortlaenge++;
-		if (*current == '\n') {
+bool ScannerImp::skip_spaces(){
+	bool end_of_file = false;
+	while(1){
+		char tmp = *buffer->getChar();
+		if(tmp == ' '){
+			x++;
+		}else if(tmp == '\n'){
+			x = 0;
 			y++;
-			x = -1;
+		}else if(tmp == '\t') {
+			x++;
+		}else if(tmp == '\0'){
+			end_of_file = true;
+		}else {
+			buffer->ungetChar(1);
+			break;
 		}
-		automatIdentifier->readChar(*current);
-		automatInteger->readChar(*current);
-		automatSign->readChar(*current);
 	}
-    return wortlaenge;
+	return end_of_file;
 }
 
-ScannerImp::ScannerImp() : tokenAnfang(nullptr), x(0), y(0)
+ScannerImp::ScannerImp(char *filepath)
 {
-    this->buffer = new Buffer();
-    this->automatIdentifier = new AutomatIdentifier();
-    this->automatSign = new AutomatSign();
-    this->automatInteger = new AutomatInteger();
+    this->buffer = new Buffer(filepath);
+	this->manager = new AutomatManager();
     this->symboltable = new Symboltable();
     symboltable->init();
 }
 
 ScannerImp::~ScannerImp() {
     delete buffer;
-    delete automatIdentifier;
-    delete automatSign;
-    delete automatInteger;
     delete symboltable;
+	delete manager;
 }
 
-Token *ScannerImp::makeToken(TType typ) {
-	return 0;
+void ScannerImp::skip_comment(TType *typ) {
+	if(*typ == CommentBegin) {
+		while (*typ != CommentEnd || skip_spaces()) {
+			runMachines();
+			*typ = manager->getType();
+		}
+		buffer->ungetChar(1);
+		runMachines();
+		*typ = manager->getType();
+	}
 }

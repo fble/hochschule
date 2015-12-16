@@ -1,46 +1,56 @@
-//#include "../includes/AutomatSign.h"
-//#include "../includes/AutomatInteger.h"
-//#include "../includes/AutomatIdentifier.h"
 #include "../includes/AutomatManager.h"
 #include <iostream>
 using namespace std;
 
-void output(int ctr, AutomatManager* manager) {
-	cout << ctr << " Zeichen gehören zu der Sprache" << endl;
-	cout << "Zeichen Nummer " << ctr+1 << " führt zum Verwerfen des Automaten!" << endl;
+void output(AutomatManager* manager, char* testString, int ctr2) {
+	char* type = manager->toString();
 
-	char* type;
+	cout << "Der Token ist vom Typ " << type << endl;
+	cout << "Der Token beginnt bei " << ctr2 << endl;
+	cout << "Die Endmarke ist bei " << manager->getEndOfChar()+ctr2 << endl;
 
-	switch(manager->getType()) {
-		case Integer: type = "Integer"; break;
-		case Identifier: type = "Identifier"; break;
-		case Sign: type = "Sign"; break;
-		case Fehler: type = "Fehler"; break;
-		case Error: type = "Nicht eindeutig"; break;
-		default: type = "NoType";
+	if(manager->getEndOfChar() == 0) {
+		cout << "Das Lexem " << *(testString+ctr2);
+	} else {
+		char tmp[manager->getEndOfChar()];
+		for(int i = 0; i<manager->getEndOfChar(); i++) {
+			tmp[i] = *(testString+i+ctr2);
+		}
+
+		cout << "Das Lexem ";
+
+		for(int i = 0; i<manager->getEndOfChar(); i++) {
+			cout << tmp[i];
+		}
 	}
-	cout << "Der Token ist vom Typ " << type;
+
+
+	cout << " ist somit gültig";
 }
 
-
-
-
 int main (int argc, char* argv[]) {
-	char* testString = "123e";
+	char* testString = "abc+1-5<:>";
 
 	AutomatManager* manager = new AutomatManager();
 
-	int ctr = 0;
+	int currIndex = 0; // Speichert den absoluten Index im Array
+	int relIndex = currIndex; // Speichert den Anfang einen neues Tokens
 
-	while(*testString != '\0') {
-		bool tmp = manager->readChar(*testString);
+	while(*(testString + currIndex) != '\0') {
+		bool tmp = manager->readChar(*(testString + currIndex));
 
-		if(tmp) ctr++;
+		if(!tmp) {
+			output(manager, testString, relIndex);
+			cout << endl << "----------------------" << endl;
+			manager->reset();
+			relIndex = currIndex; // Anfang eines neuen Tokens wird aktualisiert
+			currIndex--; // Die Stelle, an der der Automat verworfen hat,
+		}
 
-		testString++;
+		currIndex++;
 	}
 
-	output(ctr, manager);
+	output(manager, testString, relIndex);
 
 }
 
@@ -66,7 +76,7 @@ void Test1() {
 		}
 
 		if(!automat->isFinal()) {
-			cout << "Nach " << automat->back << " Zeichen verworfen" << "   ";
+			cout << "Nach " << automat->charCtr << " Zeichen verworfen" << "   ";
 		}
 		cout << lexemeSign[i]-ctr << " wird zu " << automat->isFinal() << endl;
 		automat->reset();
@@ -89,7 +99,7 @@ void Test1() {
 		}
 
 		if(!automatInt->isFinal()) {
-			cout << "Nach " << automatInt->back << " Zeichen verworfen" << "   ";
+			cout << "Nach " << automatInt->charCtr << " Zeichen verworfen" << "   ";
 		}
 		cout << lexemeInt[i]-ctr << " wird zu " << automatInt->isFinal() << endl;
 		automatInt->reset();
@@ -112,7 +122,7 @@ void Test1() {
 		}
 
 		if(!automatIden->isFinal()) {
-			cout << "Nach " << automatIden->back << " Zeichen verworfen" << "   ";
+			cout << "Nach " << automatIden->charCtr << " Zeichen verworfen" << "   ";
 		}
 
 		cout << lexemeIden[i]-ctr << " wird zu " << automatIden->isFinal() << endl;

@@ -13,7 +13,7 @@ Symboltable::~Symboltable() {
 	delete[] symboltable;
 }
 
-Information *Symboltable::insert(char *lexem, int x, int y) {
+Information <char*>*Symboltable::insert(char *lexem, int x, int y) {
 	bool isEmpty = true;
 	if (lexem != 0 && (*lexem != '\0')) {
 		SymtabEntry* lastEntry = symboltable[hash(lexem)];	
@@ -46,11 +46,11 @@ void Symboltable::init()
 {
 	insert((char *) "if", -1, -1);
 	insert((char *) "IF", -1, -1);
-	insert((char *) "while", -1, -1);
-	insert((char *) "WHILE", -1, -1);
+	insert((char *) "while", -2, -2);
+	insert((char *) "WHILE", -2, -2);
 }
 
-Information *Symboltable::lookup(char *lexem)
+Information <char*>*Symboltable::lookup(char *lexem)
 {
 	SymtabEntry* entry = symboltable[hash(lexem)];
 	if (entry != 0) {

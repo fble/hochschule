@@ -1,5 +1,4 @@
 #include "../includes/AutomatManager.h"
-#include <iostream>
 
 AutomatManager::AutomatManager() {
     this->automatIdentifier = new AutomatIdentifier();
@@ -16,30 +15,27 @@ AutomatManager::~AutomatManager() {
 TType AutomatManager::getType() {
     if(validType) {
         if(ctr == 1) {
+            this->back = ctr;
+            this->lexemLength = ctr;
+
             if(!this->automatIdentifier->hasRejected() && this->automatInteger->hasRejected() && this->automatSign->hasRejected()) {
-                this->endOfChar = automatIdentifier->lexemLength;
-                this->lexemLength = automatIdentifier->getLexemLength();
                 return automatIdentifier->getType();
             } else if(this->automatIdentifier->hasRejected() && !this->automatInteger->hasRejected() && this->automatSign->hasRejected()) {
-                this->endOfChar = automatInteger->lexemLength;
-                this->lexemLength = automatInteger->getLexemLength();
                 return automatInteger->getType();
-            } else if(this->automatIdentifier->hasRejected() && this->automatInteger->hasRejected() && !this->automatSign->hasRejected()){
-                this->endOfChar = ctr-automatSign->lexemLength;
-                this->lexemLength = automatSign->getLexemLength();
+            } else if(this->automatIdentifier->hasRejected() && this->automatInteger->hasRejected() && !this->automatSign->hasRejected()) {
                 return automatSign->getType();
             }
         } else {
             if(!this->identifierRejected && this->integerRejected && this->signRejected) {
-                this->endOfChar = ctr-automatIdentifier->lexemLength;
+                this->back = ctr - automatIdentifier->lexemLength;
                 this->lexemLength = automatIdentifier->getLexemLength();
                 return automatIdentifier->getType();
             } else if(this->identifierRejected && !this->integerRejected && this->signRejected) {
-                this->endOfChar = ctr-automatInteger->lexemLength;
+                this->back = ctr - automatInteger->lexemLength;
                 this->lexemLength = automatInteger->getLexemLength();
                 return automatInteger->getType();
             } else if(this->identifierRejected && this->integerRejected && !this->signRejected){
-                this->endOfChar = ctr-automatSign->lexemLength;
+                this->back = ctr - automatSign->lexemLength;
                 this->lexemLength = automatSign->getLexemLength();
                 return automatSign->getType();
             }
@@ -47,7 +43,7 @@ TType AutomatManager::getType() {
 
     }
 
-    this->endOfChar  =1;
+    this->back =1;
     this->lexemLength = 1;
 
     return Fehler;
@@ -78,16 +74,12 @@ bool AutomatManager::readChar(char c) {
     return true;
 }
 
-int AutomatManager::getEndOfChar() {
-    return this->endOfChar;
-}
-
 void AutomatManager::reset() {
     signRejected = false;
     integerRejected = false;
     identifierRejected = false;
     ctr = 0;
-    endOfChar = 0;
+    back = 0;
     validType = true;
 
     automatInteger->reset();

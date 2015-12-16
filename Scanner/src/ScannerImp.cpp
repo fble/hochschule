@@ -22,7 +22,7 @@ Token *ScannerImp::nextToken() {
 	memcpy(tmp, tokenAnfang, wortlaenge);
 	tmp[wortlaenge] = '\0';
 
-	int a = manager->getEndOfChar();
+	int a = manager->ungetCtr();
 	manager->reset();
 	buffer->ungetChar(a);
 	if (typ == Identifier) {

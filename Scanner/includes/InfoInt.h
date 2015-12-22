@@ -12,8 +12,8 @@
 class InfoInt : public Information <long>{
     long value;
 public:
-    InfoInt(char *value) {
-        this->value = strtol(value,NULL,10);
+    InfoInt(long value) {
+        this->value = value;
     };
 
     virtual ~InfoInt() {};

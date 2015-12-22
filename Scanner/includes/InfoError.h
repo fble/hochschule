@@ -11,16 +11,17 @@
 #include <string.h>
 #include "../../Information/Information.h"
 
-class InfoError : public Information <char>{
-    char value;
+class InfoError : public Information <char*>{
+    char *value;
 public:
     InfoError(char *value) {
-        this-> value = *value;
+        this-> value = new char(strlen(value));
+        strcpy(this->value,value);
     };
 
     virtual ~InfoError() {};
 
-    virtual char getInfo() override { return value; };
+    virtual char *getInfo() override { return value; };
 
     virtual int getX() override { return 0; };
 

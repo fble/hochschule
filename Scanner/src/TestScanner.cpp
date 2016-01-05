@@ -3,9 +3,9 @@
 
 
 int main(int argc, char **argv) {
-    ScannerImp *scanner = new ScannerImp((char *) "/home/fble/Desktop/hochschule/test.txt");
+    ScannerImp *scanner = new ScannerImp((char *) "/home/stefan/test.txt");
     Token *token;
-    FILE* file = fopen("/home/fble/Desktop/hochschule/out.txt","w");
+    FILE* file = fopen("/home/stefan/out.txt","w");
     while((token = scanner->nextToken())) {
         auto typ = token->getType();
         if(typ == Fehler){

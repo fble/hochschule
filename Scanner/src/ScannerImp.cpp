@@ -10,12 +10,17 @@
 
 Token *ScannerImp::nextToken() {
 	if(skip_spaces())return NULL;
+
 	runMachines();
+
 	TType typ = manager->getType();
-	skip_comment(&typ);
-	int wortlaenge = manager->getLexemLength();
+
 	int wrongChars = manager->ungetCtr();
 	buffer->ungetChar(wrongChars);
+
+	skip_comment(&typ);
+	int wortlaenge = manager->getLexemLength();
+
 	return createToken(typ,wortlaenge,x,y);
 }
 
@@ -62,12 +67,13 @@ bool ScannerImp::skip_spaces(){
 		if(tmp == ' '){
 			x++;
 		}else if(tmp == '\n'){
-			x = 0;
+			x = 1;
 			y++;
 		}else if(tmp == '\t') {
 			x++;
-		}else if(tmp == '\0'){
+		}else if(tmp == '\000'){
 			end_of_file = true;
+			return end_of_file;
 		}else {
 			buffer->ungetChar(1);
 			break;
@@ -92,12 +98,20 @@ ScannerImp::~ScannerImp() {
 
 void ScannerImp::skip_comment(TType *typ) {
 	if(*typ == CommentBegin) {
-		while (*typ != CommentEnd || skip_spaces()) {
+		x+=2;
+		while (*typ != CommentEnd) {
+			if(skip_spaces()) exit(0);
 			runMachines();
 			*typ = manager->getType();
+			x+=manager->getLexemLength();
+			if(!(*typ == Fehler && manager->ungetCtr() == 1))
+				buffer->ungetChar(manager->ungetCtr());
 		}
-		buffer->ungetChar(1);
-		runMachines();
-		*typ = manager->getType();
+
+		if(!skip_spaces()) {// Wenn das Ende der Datei erreicht wurde, soll Automat nicht mehr starten
+			runMachines();
+			*typ = manager->getType();
+			buffer->ungetChar(manager->ungetCtr());
+		}
 	}
 }

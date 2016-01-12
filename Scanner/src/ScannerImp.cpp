@@ -60,17 +60,16 @@ Token *ScannerImp::createToken(TType typ,int wortlaenge,int X_Anfang,int Y_Anfan
 
 bool ScannerImp::runMachines(TType *typ)
 {
-	bool end_of_file =false;
-	manager->reset();
 	if(skip_spaces()){
-		end_of_file = true;
+		return true;
 	}
+	manager->reset();
 	this->tokenAnfang = buffer->getCharPointer();
 	while(manager->readChar(*buffer->getChar()));
+	*typ = manager->getType();
 	int back = manager->ungetCtr();
 	buffer->ungetChar(back);
-	*typ = manager->getType();
-	return end_of_file;
+	return false;
 }
 
 bool ScannerImp::skip_spaces(){
@@ -80,11 +79,11 @@ bool ScannerImp::skip_spaces(){
 		if(tmp == ' '){
 			x++;
 		}else if(tmp == '\n'){
-			x = 0;
+			x = 1;
 			y++;
 		}else if(tmp == '\t') {
 			x++;
-		}else if(tmp == '\0'){
+		}else if(tmp == '\000'){
 			end_of_file = true;
 		}else {
 			buffer->ungetChar(1);
@@ -111,10 +110,14 @@ ScannerImp::~ScannerImp() {
 bool ScannerImp::skip_comment(TType *typ) {
 	x+=2;
 	while (*typ != CommentEnd) {
-		x+= manager->getLexemLength();
 		if (runMachines(typ)){
 			return true;
 		}
+		x+= manager->getLexemLength();
+		if (*typ == Fehler){
+			buffer->getChar();
+		}
+
 	}
 	return runMachines(typ);
 }

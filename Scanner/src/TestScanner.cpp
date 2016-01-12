@@ -4,7 +4,7 @@
 
 int main(int argc, char **argv) {
     bool error = false;
-    ScannerImp *scanner = new ScannerImp((char *) "/home/fble/Desktop/hochschule/test.txt");
+    ScannerImp *scanner = new ScannerImp((char*)"/home/test.txt");
     Token *token;
     FILE* file = fopen("/home/fble/Desktop/hochschule/out.txt","w");
     printf("processing...\n");
@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
         auto typ = token->getType();
         if(typ == Fehler){
             error = true;
-            fprintf(stderr,"unkown Token: %s \n",token->getInformation<char*>()->getInfo());
+            fprintf(stderr,"unkown Token: Line: %d Column: %d: %s \n",token->getLine(),token->getColumn(),token->getInformation<char*>()->getInfo());
         }else{
             fprintf(file,"Token %s\tLine: %d Column: %d",Scanner::toString(typ),token->getLine(),token->getColumn());
             switch(typ){

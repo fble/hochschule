@@ -22,7 +22,7 @@ class ScannerImp: public Scanner{
 	Buffer *buffer;
 	AutomatManager *manager;
 	char *tokenAnfang;
-	int x, y;
+	int x=1, y=1;
 
 	bool runMachines(TType *typ);
     bool skip_spaces();

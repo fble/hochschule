@@ -15,10 +15,22 @@ Token *ScannerImp::nextToken() {
 	while (typ == CommentBegin) {
 		ende = skip_comment(&typ);
 	}
-	int wortlaenge = manager->getLexemLength();
-	if(ende){
-		return NULL;
-	}
+
+
+    int wortlaenge = 0;
+
+    if (typ == CommentEnd) {
+        wortlaenge = 1;
+        typ = Stern;
+        buffer->ungetChar(1);
+    } else {
+        wortlaenge = manager->getLexemLength();
+        if(ende){
+            return NULL;
+        }
+    }
+
+
 	return createToken(typ,wortlaenge,x,y);
 }
 

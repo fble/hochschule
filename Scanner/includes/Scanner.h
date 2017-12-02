@@ -41,6 +41,10 @@ public:
             case ClosingBrace: tmp = "ClosingBrace"; break;
             case CommentBegin: tmp = "CommentBegin"; break;
             case CommentEnd: tmp = "CommentEnd"; break;
+            case Write: tmp = "Write"; break;
+            case Read: tmp = "Read"; break;
+            case Else: tmp = "Else"; break;
+            case Int: tmp = "Int"; break;
             default: tmp = "NoType";
         }
 

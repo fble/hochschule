@@ -48,6 +48,11 @@ void Symboltable::init()
 	insert((char *) "IF", -1, -1);
 	insert((char *) "while", -2, -2);
 	insert((char *) "WHILE", -2, -2);
+	insert((char *) "write", -3, -3);
+	insert((char *) "read", -4, -4);
+	insert((char *) "else", -5, -5);
+	insert((char *) "ELSE", -5, -5);
+	insert((char *) "int", -6, -6);
 }
 
 Information <char*>*Symboltable::lookup(char *lexem)

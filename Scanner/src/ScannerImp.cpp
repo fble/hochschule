@@ -51,6 +51,18 @@ Token *ScannerImp::createToken(TType typ,int wortlaenge,int X_Anfang,int Y_Anfan
 				case -2:
 					typ = While;
 					break;
+				case -3:
+					typ = Write;
+					break;
+				case -4:
+					typ = Read;
+					break;
+				case -5:
+					typ = Else;
+					break;
+				case -6:
+					typ = Int;
+					break;
 				default:break;
 			}
 			break;
@@ -77,7 +89,14 @@ bool ScannerImp::runMachines(TType *typ)
 	}
 	manager->reset();
 	this->tokenAnfang = buffer->getCharPointer();
-	while(manager->readChar(*buffer->getChar()));
+
+	bool acceptsMoreChars = false;
+
+	do {
+		char currentChar = *buffer->getChar();
+		acceptsMoreChars = manager->readChar(currentChar);
+	} while(acceptsMoreChars);
+
 	*typ = manager->getType();
 	int back = manager->ungetCtr();
 	buffer->ungetChar(back);

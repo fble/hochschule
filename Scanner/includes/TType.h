@@ -32,7 +32,11 @@ typedef enum {
     OpeningBrace,
     ClosingBrace,
     CommentBegin,
-    CommentEnd
+    CommentEnd,
+    Write,
+    Read,
+    Else,
+    Int
 
 } TType;
 

@@ -46,7 +46,7 @@ private:
 	void OpExp(ParseTreeNode* n);
 	PR::ParseResult Op(ParseTreeNode* n);
 	Token* retrieveToken();
-	bool checkTokenType(Token* token, Tokens::TokenType type);
+	bool checkTokenType(Token* token, TType type);
 	void error(char* errorMsg);
 	Token* actualToken;
 

@@ -58,7 +58,7 @@ void Parser::Decls(ParseTreeNode* n) {
 	n->addChild(declsNode);
 	PR::ParseResult result = Decl(declsNode);
 	if (result == PR::RULEFOUND
-		&&  checkTokenType(actualToken,Tokens::S_SEMICOLON)) {
+		&&  checkTokenType(actualToken,Semicolon)) {
 
 		declsNode->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
@@ -67,21 +67,21 @@ void Parser::Decls(ParseTreeNode* n) {
 		//error, only if a rule in Decl was found (?)
 		declsNode->addChild(new ParseTreeNode(Rules::EPS));
 	} else if (result == PR::RULEFOUND
-			   &&  !checkTokenType(actualToken, Tokens::S_SEMICOLON)) {
+			   &&  !checkTokenType(actualToken, Semicolon)) {
 		error("Error in Decls");
 	}
 }
 
 PR::ParseResult Parser::Decl(ParseTreeNode* n) {
 
-	if ( checkTokenType(actualToken, Tokens::T_INTTOKEN)) {
+	if ( checkTokenType(actualToken, Int)) {
 		ParseTreeNode* declNode = new ParseTreeNode(Rules::DECL);
 		n->addChild(declNode);
 		declNode->addChild(new ParseTreeNode(actualToken));
 
 		actualToken = retrieveToken();
 		Array(declNode);
-		if (checkTokenType(actualToken, Tokens::T_IDENTIFIER)) {
+		if (checkTokenType(actualToken, Identifier)) {
 
 			declNode->addChild(new ParseTreeNode(actualToken));
 			actualToken = retrieveToken();
@@ -100,13 +100,13 @@ PR::ParseResult Parser::Decl(ParseTreeNode* n) {
 void Parser::Array(ParseTreeNode* n) {
 	ParseTreeNode* arrayNode = new ParseTreeNode(Rules::ARRAY);
 	n->addChild(arrayNode);
-	if (checkTokenType(actualToken, Tokens::S_SQUARE_BRACKET_OPEN)) {
+	if (checkTokenType(actualToken, OS_Bracket)) {
 		arrayNode->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
-		if (checkTokenType(actualToken,  Tokens::T_INTEGER)) {
+		if (checkTokenType(actualToken,  Int)) {
 			arrayNode->addChild(new ParseTreeNode(actualToken));
 			actualToken = retrieveToken();
-			if (checkTokenType(actualToken, Tokens::S_SQUARE_BRACKET_CLOSE)) {
+			if (checkTokenType(actualToken, CS_Bracket)) {
 				arrayNode->addChild(new ParseTreeNode(actualToken));
 				actualToken = retrieveToken();
 			} else {
@@ -126,14 +126,14 @@ void Parser::Statements(ParseTreeNode* n) {
 	n->addChild(statementsNode);
 	PR::ParseResult result = Statement(statementsNode);
 	if (result == PR::RULEFOUND
-		&& checkTokenType(actualToken,  Tokens::S_SEMICOLON)) {
+		&& checkTokenType(actualToken,  Semicolon)) {
 		statementsNode->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
 		Statements(statementsNode);
 	} else if (result == PR::RULENOTFOUND) {
 		statementsNode->addChild(new ParseTreeNode(Rules::EPS));
 	} else if (result == PR::RULEFOUND
-			   && !checkTokenType(actualToken,  Tokens::S_SEMICOLON)) {
+			   && !checkTokenType(actualToken,  Semicolon)) {
 		error("statements");
 	}
 }
@@ -143,12 +143,12 @@ PR::ParseResult Parser::Statement(ParseTreeNode* n) {
 	ParseTreeNode* statementNode = new ParseTreeNode(Rules::STATEMENT);
 
 
-	if (checkTokenType(actualToken,  Tokens::T_IDENTIFIER)) {
+	if (checkTokenType(actualToken,  Identifier)) {
 		statementNode->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
 
 		Index(statementNode);
-		if (checkTokenType(actualToken, Tokens::S_ASSIGN)) {
+		if (checkTokenType(actualToken, Assign)) {
 			statementNode->addChild(new ParseTreeNode(actualToken));
 			actualToken = retrieveToken();
 			Exp(statementNode);
@@ -157,16 +157,16 @@ PR::ParseResult Parser::Statement(ParseTreeNode* n) {
 			error("statement");
 			result =PR::ERROR;
 		}
-	} else if (checkTokenType(actualToken, Tokens::T_WRITETOKEN)) {
+	} else if (checkTokenType(actualToken, Write)) {
 		statementNode->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
 
-		if (checkTokenType(actualToken, Tokens::S_BRACKET_OPEN)) {
+		if (checkTokenType(actualToken, OR_Bracket)) {
 			statementNode->addChild(new ParseTreeNode(actualToken));
 			actualToken = retrieveToken();
 
 			Exp(statementNode);
-			if (checkTokenType(actualToken, Tokens::S_BRACKET_CLOSE)) {
+			if (checkTokenType(actualToken, CR_Bracket)) {
 
 				statementNode->addChild(new ParseTreeNode(actualToken));
 				actualToken = retrieveToken();
@@ -179,17 +179,17 @@ PR::ParseResult Parser::Statement(ParseTreeNode* n) {
 			error("statement");
 			result = PR::ERROR;
 		}
-	} else if (checkTokenType(actualToken,  Tokens::T_READTOKEN)) {
+	} else if (checkTokenType(actualToken,  Read)) {
 		statementNode->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
-		if (checkTokenType(actualToken, Tokens::S_BRACKET_OPEN)) {
+		if (checkTokenType(actualToken, OR_Bracket)) {
 			statementNode->addChild(new ParseTreeNode(actualToken));
 			actualToken = retrieveToken();
-			if (checkTokenType(actualToken,  Tokens::T_IDENTIFIER)) {
+			if (checkTokenType(actualToken,  Identifier)) {
 				statementNode->addChild(new ParseTreeNode(actualToken));
 				actualToken = retrieveToken();
 				Index(statementNode);
-				if (checkTokenType(actualToken, Tokens::S_BRACKET_CLOSE)) {
+				if (checkTokenType(actualToken, CR_Bracket)) {
 					statementNode->addChild(new ParseTreeNode(actualToken));
 					actualToken = retrieveToken();
 					result = PR::RULEFOUND;
@@ -206,11 +206,11 @@ PR::ParseResult Parser::Statement(ParseTreeNode* n) {
 			result =PR::ERROR;
 		}
 
-	} else if (checkTokenType(actualToken,  Tokens::S_CURLY_BRACKET_OPEN)) {
+	} else if (checkTokenType(actualToken,  OpeningBrace)) {
 		statementNode->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
 		Statements(statementNode);
-		if (checkTokenType(actualToken,  Tokens::S_CURLY_BRACKET_CLOSE)) {
+		if (checkTokenType(actualToken,  ClosingBrace)) {
 			statementNode->addChild(new ParseTreeNode(actualToken));
 			actualToken = retrieveToken();
 			result = PR::RULEFOUND;
@@ -218,18 +218,18 @@ PR::ParseResult Parser::Statement(ParseTreeNode* n) {
 			error("statement");
 			result = PR::ERROR;
 		}
-	} else if (checkTokenType(actualToken,  Tokens::T_IFTOKEN)) {
+	} else if (checkTokenType(actualToken,  If)) {
 		statementNode->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
-		if (checkTokenType(actualToken, Tokens::S_BRACKET_OPEN)) {
+		if (checkTokenType(actualToken, OR_Bracket)) {
 			statementNode->addChild(new ParseTreeNode(actualToken));
 			actualToken = retrieveToken();
 			Exp(statementNode);
-			if (checkTokenType(actualToken, Tokens::S_BRACKET_CLOSE)) {
+			if (checkTokenType(actualToken, CR_Bracket)) {
 				statementNode->addChild(new ParseTreeNode(actualToken));
 				actualToken = retrieveToken();
 				result = Statement(statementNode);
-				if (result == PR::RULEFOUND && checkTokenType(actualToken, Tokens::T_ELSETOKEN)) {
+				if (result == PR::RULEFOUND && checkTokenType(actualToken, Else)) {
 					statementNode->addChild(new ParseTreeNode(actualToken));
 					actualToken = retrieveToken();
 					result = Statement(statementNode);
@@ -246,14 +246,14 @@ PR::ParseResult Parser::Statement(ParseTreeNode* n) {
 			error("statement");
 			result = PR::ERROR;
 		}
-	} else if (checkTokenType(actualToken, Tokens::T_WHILETOKEN)) {
+	} else if (checkTokenType(actualToken, While)) {
 		statementNode->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
-		if (checkTokenType(actualToken, Tokens::S_BRACKET_OPEN)) {
+		if (checkTokenType(actualToken, OR_Bracket)) {
 			statementNode->addChild(new ParseTreeNode(actualToken));
 			actualToken = retrieveToken();
 			Exp(statementNode);
-			if (checkTokenType(actualToken, Tokens::S_BRACKET_CLOSE)) {
+			if (checkTokenType(actualToken, CR_Bracket)) {
 				statementNode->addChild(new ParseTreeNode(actualToken));
 				actualToken = retrieveToken();
 				result = Statement(statementNode);
@@ -282,11 +282,11 @@ PR::ParseResult Parser::Index(ParseTreeNode* n) {
 	ParseTreeNode* indexNode = new ParseTreeNode(Rules::INDEX);
 	n->addChild(indexNode);
 
-	if (checkTokenType(actualToken, Tokens::S_SQUARE_BRACKET_OPEN)) {
+	if (checkTokenType(actualToken, OS_Bracket)) {
 		indexNode->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
 		Exp(indexNode);
-		if (checkTokenType(actualToken, Tokens::S_SQUARE_BRACKET_CLOSE)) {
+		if (checkTokenType(actualToken, CS_Bracket)) {
 			indexNode->addChild(new ParseTreeNode(actualToken));
 			actualToken = retrieveToken();
 			return PR::RULEFOUND;
@@ -312,28 +312,28 @@ void Parser::Exp2(ParseTreeNode* n) {
 	ParseTreeNode* exp2Node = new ParseTreeNode(Rules::EXP2);
 	n->addChild(exp2Node);
 
-	if (checkTokenType(actualToken, Tokens::S_BRACKET_OPEN)) {
+	if (checkTokenType(actualToken, OR_Bracket)) {
 		exp2Node->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
 		Exp(exp2Node);
-		if (checkTokenType(actualToken, Tokens::S_BRACKET_CLOSE)) {
+		if (checkTokenType(actualToken, CR_Bracket)) {
 			exp2Node->addChild(new ParseTreeNode(actualToken));
 			actualToken = retrieveToken();
 		} else {
 			error("exp2");
 		}
-	} else if (checkTokenType(actualToken, Tokens::T_IDENTIFIER)) {
+	} else if (checkTokenType(actualToken, Identifier)) {
 		exp2Node->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
 		Index(exp2Node);
-	} else if (checkTokenType(actualToken,  Tokens::T_INTEGER)) {
+	} else if (checkTokenType(actualToken,  Int)) {
 		exp2Node->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
-	} else if (checkTokenType(actualToken, Tokens::S_MINUS)) {
+	} else if (checkTokenType(actualToken, Minus)) {
 		exp2Node->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
 		Exp2(exp2Node);
-	} else if (checkTokenType(actualToken, Tokens::S_EXCLAMATION)) {
+	} else if (checkTokenType(actualToken, Not)) {
 		exp2Node->addChild(new ParseTreeNode(actualToken));
 		actualToken = retrieveToken();
 		Exp2(exp2Node);
@@ -356,15 +356,15 @@ void Parser::OpExp(ParseTreeNode* n) {
 
 PR::ParseResult Parser::Op(ParseTreeNode* n) {
 
-	if (checkTokenType(actualToken,  Tokens::S_PLUS)
-		|| checkTokenType(actualToken, Tokens::S_MINUS)
-		|| checkTokenType(actualToken,  Tokens::S_STAR)
-		|| checkTokenType(actualToken, Tokens::S_COLON)
-		|| checkTokenType(actualToken,  Tokens::S_GREATER)
-		|| checkTokenType(actualToken,  Tokens::S_LESS)
-		|| checkTokenType(actualToken, Tokens::S_EQUAL)
-		|| checkTokenType(actualToken, Tokens::S_LESSCOLONGREATER)
-		|| checkTokenType(actualToken, Tokens::S_AMP)) {
+	if (checkTokenType(actualToken,  Plus)
+		|| checkTokenType(actualToken, Minus)
+		|| checkTokenType(actualToken,  Stern)
+		|| checkTokenType(actualToken, Division)
+		|| checkTokenType(actualToken,  GreaterThan)
+		|| checkTokenType(actualToken,  LessThan)
+		|| checkTokenType(actualToken, Equal)
+		|| checkTokenType(actualToken, NotEqual)
+		|| checkTokenType(actualToken, Tokens::S_AMP)) { // Wtf, was ist AMP??
 		ParseTreeNode* opNode = new ParseTreeNode(Rules::OP);
 		n->addChild(opNode);
 		opNode->addChild(new ParseTreeNode(actualToken));
@@ -376,7 +376,7 @@ PR::ParseResult Parser::Op(ParseTreeNode* n) {
 	}
 }
 
-bool Parser::checkTokenType(Token* token, Tokens::TokenType type) {
+bool Parser::checkTokenType(Token* token, TType type) {
 	if(token != 0 && token->getType() == type){
 		return true;
 	}

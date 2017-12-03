@@ -24,7 +24,7 @@ class Parser {
 
 public:
 
-	Parser(const char *inputfile);
+	Parser(char *inputfile);
 	void parse(const char *outputfile);
 
 private:

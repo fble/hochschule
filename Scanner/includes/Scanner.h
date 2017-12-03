@@ -51,6 +51,8 @@ public:
         return tmp;
     }
 
+    virtual bool isFileEnd() = 0;
+
 };
 
 #endif //COMPILER_SCANNER_H_H

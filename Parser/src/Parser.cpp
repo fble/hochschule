@@ -1,11 +1,10 @@
 #include "../includes/Parser.h"
 
-Parser::Parser(const char *inputfile) {
-	this->symtab = new Symboltable(1000);
-	this->scanner = new Scanner(inputfile, this->symtab);
+Parser::Parser(char *inputfile) {
+	this->symtab = new Symboltable();
+	this->scanner = new ScannerImp(inputfile);
 
 	Output::init("scannerout.txt");
-	this->scanner->init();
 }
 
 //TODO questions:

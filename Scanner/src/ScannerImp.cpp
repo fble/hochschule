@@ -9,11 +9,10 @@
 #include "../includes/InfoInt.h"
 
 Token *ScannerImp::nextToken() {
-	bool ende;
 	TType typ;
-	ende = runMachines(&typ);
+	endOfFile = runMachines(&typ);
 	while (typ == CommentBegin) {
-		ende = skip_comment(&typ);
+		endOfFile = skip_comment(&typ);
 	}
 
 
@@ -25,13 +24,17 @@ Token *ScannerImp::nextToken() {
         buffer->ungetChar(1);
     } else {
         wortlaenge = manager->getLexemLength();
-        if(ende){
+        if(endOfFile){
             return NULL;
         }
     }
 
 
 	return createToken(typ,wortlaenge,x,y);
+}
+
+bool ScannerImp::isFileEnd() {
+	return endOfFile;
 }
 
 Token *ScannerImp::createToken(TType typ,int wortlaenge,int X_Anfang,int Y_Anfang){
@@ -126,6 +129,7 @@ bool ScannerImp::skip_spaces(){
 
 ScannerImp::ScannerImp(char *filepath)
 {
+	endOfFile = false;
     this->buffer = new Buffer(filepath);
 	this->manager = new AutomatManager();
     this->symboltable = new Symboltable();

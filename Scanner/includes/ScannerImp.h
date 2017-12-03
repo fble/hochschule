@@ -23,6 +23,7 @@ class ScannerImp: public Scanner{
 	AutomatManager *manager;
 	char *tokenAnfang;
 	int x=1, y=1;
+	bool endOfFile;
 
 	bool runMachines(TType *typ);
     bool skip_spaces();
@@ -38,6 +39,7 @@ public:
 
     Token *createToken(TType typ,int wortlaenge,int X_Anfang,int Y_Anfang);
 
+	bool isFileEnd() override;
 
 };
 

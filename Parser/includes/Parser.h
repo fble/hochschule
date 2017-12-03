@@ -1,12 +1,17 @@
 #ifndef PARSER_INCLUDES_PARSER
 #define PARSER_INCLUDES_PARSER
 
+#include <stdio.h>
 
-#include "../includes/Parser.h"
-#include "../../Scanner/includes/Scanner.h"
+#include "../../Scanner/includes/ScannerImp.h"
 #include "../../Symboltable/includes/Symboltable.h"
 #include "../../Scanner/includes/Token.h"
 #include "../../Tree/includes/ParseTreeNode.h"
+#include "../../Tree/includes/MakeCodeVisitor.h"
+#include "../../Tree/includes/TypeCheckVisitor.h"
+
+using namespace std;
+
 namespace PR {
 	enum ParseResult {
 		RULEFOUND = 0,
@@ -14,7 +19,9 @@ namespace PR {
 		ERROR = 2,
 	};
 }
+
 class Parser {
+
 public:
 
 	Parser(const char *inputfile);

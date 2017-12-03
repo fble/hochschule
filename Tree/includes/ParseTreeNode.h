@@ -1,7 +1,3 @@
-//
-// Created by stefan on 02.12.17.
-//
-
 #ifndef TREE_INCLUDES_PARSETREENODE
 #define TREE_INCLUDES_PARSETREENODE
 
@@ -9,6 +5,8 @@
 #include "DoubleLinkedList.h"
 #include "RuleTypes.h"
 #include "TreeVisitor.h"
+#include <stdio.h>
+#include <iomanip>
 //#include "InformationType.h"
 
 class TreeVisitor;

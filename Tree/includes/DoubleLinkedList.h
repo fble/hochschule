@@ -5,6 +5,9 @@
 #ifndef TREE_INCLUDES_DOUBLELINKEDLIST
 #define TREE_INCLUDES_DOUBLELINKEDLIST
 
+#include <iostream>
+#include <stdexcept>
+
 template <class Value>
 /**
  * A simple generic Linked List storing key-value-pairs.
